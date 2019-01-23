@@ -158,6 +158,11 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M6Y-7B-x2A">
+                                <rect key="frame" x="268" y="427" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="n7p-tc-fc2"/>
@@ -166,7 +171,7 @@
                         <barButtonItem key="rightBarButtonItem" title="保存" id="Dz1-0C-bSk"/>
                     </navigationItem>
                     <connections>
-                        <outlet property="textFiled" destination="QfD-2f-X0F" id="o6p-zd-Hlw"/>
+                        <outlet property="textField" destination="QfD-2f-X0F" id="Um7-lI-hc1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f3N-qa-sOH" userLabel="First Responder" sceneMemberID="firstResponder"/>
