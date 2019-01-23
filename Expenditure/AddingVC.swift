@@ -14,21 +14,24 @@ class AddingVC: UIViewController, UITextFieldDelegate{
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        //初始化delegate
+        self.textField.delegate = self
+        //把textField放到最上层
+        self.view.bringSubviewToFront(self.textField)
         //设置监视键盘位置
         NotificationCenter.default.addObserver(self,selector:#selector(self.keyboardPositionDidChange(_:)),name:UIResponder.keyboardWillChangeFrameNotification, object: nil)
-        
-        
-        
         
         // Do any additional setup after loading the view.
     }
     
 
-    //在监视到键盘变化后call的函数，把textView上移
+    //在监视到键盘变化后call的函数，把textView上移（或上移，具体根据textfield位置而定）
     @objc func keyboardPositionDidChange(_ notification:Notification){
         let info  = notification.userInfo
         let keyboardRect = (info?[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
-        let offSetY = keyboardRect.origin.y - UIScreen.main.bounds.height
+        let textfiledBottom = self.textField.frame.maxY
+        let offSetY = keyboardRect.origin.y - textfiledBottom-10
+//        let offSetY = keyboardRect.origin.y - UIScreen.main.bounds.height
         UIView.animate(withDuration: 0.3, animations: {
             self.textField.transform = CGAffineTransform(translationX: 0, y: offSetY)
             }, completion: nil)
