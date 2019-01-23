@@ -24,17 +24,24 @@ class AddingVC: UIViewController, UITextFieldDelegate{
         // Do any additional setup after loading the view.
     }
     
-
     //在监视到键盘变化后call的函数，把textView上移（或上移，具体根据textfield位置而定）
     @objc func keyboardPositionDidChange(_ notification:Notification){
         let info  = notification.userInfo
         let keyboardRect = (info?[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
-        let textfiledBottom = self.textField.frame.maxY
-        let offSetY = keyboardRect.origin.y - textfiledBottom-10
-//        let offSetY = keyboardRect.origin.y - UIScreen.main.bounds.height
-        UIView.animate(withDuration: 0.3, animations: {
-            self.textField.transform = CGAffineTransform(translationX: 0, y: offSetY)
+        if keyboardRect.origin.y == UIScreen.main.bounds.height{
+            //键盘消失了
+            UIView.animate(withDuration: 0.3, animations: {
+                self.textField.transform = CGAffineTransform(translationX: 0, y: 0)
             }, completion: nil)
+        }else{
+            //键盘出现了
+            let textfiledBottom = self.textField.frame.maxY
+            print(textfiledBottom)
+            let offSetY = keyboardRect.origin.y - textfiledBottom-10
+            UIView.animate(withDuration: 0.3, animations: {
+                self.textField.transform = CGAffineTransform(translationX: 0, y: offSetY)
+            }, completion: nil)
+        }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
