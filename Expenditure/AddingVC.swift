@@ -16,11 +16,22 @@ class AddingVC: UIViewController, UITextFieldDelegate{
     
     @IBOutlet weak var datePickerButton: UIButton!
     
+    
+    //单击函数
+    @objc func singelTabpFunction(sender:UITapGestureRecognizer){
+        self.textField.resignFirstResponder()
+        self.expenceNumberTextField.resignFirstResponder()
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         //初始化delegate
         self.textField.delegate = self
         self.expenceNumberTextField.delegate = self
+        //加入单击收回键盘手势
+        let singleTapOnBaseViewGesture = UITapGestureRecognizer(target: self, action: #selector(singelTabpFunction))
+        self.view.addGestureRecognizer(singleTapOnBaseViewGesture)
         //把textField放到最上层
         self.view.bringSubviewToFront(self.textField)
         //设置监视键盘位置
@@ -33,21 +44,28 @@ class AddingVC: UIViewController, UITextFieldDelegate{
     
     //在监视到键盘变化后call的函数，把textView上移（或上移，具体根据textfield位置而定）
     @objc func keyboardPositionDidChange(_ notification:Notification){
-        let info  = notification.userInfo
-        let keyboardRect = (info?[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
-        if keyboardRect.origin.y == UIScreen.main.bounds.height{
-            //键盘消失了
-            UIView.animate(withDuration: 0.3, animations: {
-                self.textField.transform = CGAffineTransform(translationX: 0, y: 0)
-            }, completion: nil)
-        }else{
-            //键盘出现了
-            let textfiledBottom = self.textField.frame.maxY
-            print(textfiledBottom)
-            let offSetY = keyboardRect.origin.y - textfiledBottom-10
-            UIView.animate(withDuration: 0.3, animations: {
-                self.textField.transform = CGAffineTransform(translationX: 0, y: offSetY)
-            }, completion: nil)
+        if self.textField.isFirstResponder{
+            let info  = notification.userInfo
+            let keyboardRect = (info?[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+            if keyboardRect.origin.y == UIScreen.main.bounds.height{
+                //键盘消失了
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.textField.transform = CGAffineTransform(translationX: 0, y: 0)
+                }, completion: nil)
+            }else{
+                //键盘出现了
+                let textfiledBottom = self.textField.frame.maxY
+                let offSetY = keyboardRect.origin.y - textfiledBottom-10
+                print("textbottom: ")
+                print(textfiledBottom)
+                print("K origin y: ")
+                print(keyboardRect.origin.y)
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.textField.transform = CGAffineTransform(translationX: 0, y: offSetY)
+                }, completion: nil)
+                print("textfield end anime bottom")
+                print(self.textField.frame.maxY)
+            }
         }
     }
     
@@ -56,8 +74,6 @@ class AddingVC: UIViewController, UITextFieldDelegate{
         return true
     }
     
-    
-   
     
     @IBOutlet weak var textField: UITextField!
     
