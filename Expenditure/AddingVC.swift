@@ -11,15 +11,22 @@ import UIKit
 
 
 class AddingVC: UIViewController, UITextFieldDelegate{
-
+    
+    @IBOutlet weak var expenceNumberTextField: UITextField!
+    
+    @IBOutlet weak var datePickerButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         //初始化delegate
         self.textField.delegate = self
+        self.expenceNumberTextField.delegate = self
         //把textField放到最上层
         self.view.bringSubviewToFront(self.textField)
         //设置监视键盘位置
         NotificationCenter.default.addObserver(self,selector:#selector(self.keyboardPositionDidChange(_:)),name:UIResponder.keyboardWillChangeFrameNotification, object: nil)
+        //直接弹出输入金额的键盘
+        self.expenceNumberTextField.becomeFirstResponder()
         
         // Do any additional setup after loading the view.
     }
@@ -48,6 +55,7 @@ class AddingVC: UIViewController, UITextFieldDelegate{
         self.textField.resignFirstResponder()
         return true
     }
+    
     
    
     
