@@ -7,13 +7,13 @@
 //
 
 import UIKit
+import CoreData
 
 
 
 class AddingVC: UIViewController, UITextFieldDelegate, UIPopoverPresentationControllerDelegate{
     
     @IBOutlet weak var expenceNumberTextField: UITextField!
-    
     
     @IBOutlet weak var datePickerOutlet: UIButton!
     
@@ -27,13 +27,13 @@ class AddingVC: UIViewController, UITextFieldDelegate, UIPopoverPresentationCont
     @objc func singelTabpFunction(sender:UITapGestureRecognizer){
         self.textField.resignFirstResponder()
         self.expenceNumberTextField.resignFirstResponder()
-        
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         //初始化delegate
         self.textField.delegate = self
+        self.expenceNumberTextField.delegate = self
         self.expenceNumberTextField.delegate = self
         //加入单击收回键盘手势
         let singleTapOnBaseViewGesture = UITapGestureRecognizer(target: self, action: #selector(singelTabpFunction))
@@ -73,11 +73,55 @@ class AddingVC: UIViewController, UITextFieldDelegate, UIPopoverPresentationCont
             }
         }
     }
-    
+    //textField相关
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        print("should return")
         self.textField.resignFirstResponder()
+        if textField == self.textField{
+            self.updateExpenceAndDetail()
+            self.checkEntryNumber()
+//            self.updateDatebase()
+//            self.navigationController?.popToRootViewController(animated: true);
+        }
         return true
     }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        print("end editting")
+        self.updateExpenceAndDetail()
+    }
+    //把两个textFiled的值给本地变量
+    func updateExpenceAndDetail(){
+        if self.textField.text != ""{
+            self.detail = self.textField.text!
+            print(self.detail)
+        }
+        if self.expenceNumberTextField.text != ""{
+            self.expenceNumber = Float(self.expenceNumberTextField.text!)!
+            print(self.expenceNumber)
+        }
+    }
+    var container = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer
+    //更新数据库
+    func updateDatebase(){
+        self.container?.performBackgroundTask{context in
+            _ = ExEntry.updateDatabase(in: context, number: self.expenceNumber, category: self.category, detail: self.detail, dateTime: self.selectedDate)
+            try? context.save()
+        }
+    }
+    //测试用，看看有几条entry
+    func checkEntryNumber(){
+        if let context = self.container?.viewContext{
+            if let entryCount = try? context.count(for: ExEntry.fetchRequest()){
+                print(entryCount)
+            }
+        }
+    }
+    //花费数字，备注，类别
+    //类别暂时还没有做！
+    var expenceNumber = Float(0)
+    var detail = ""
+    var category = "unknown"
     
     
     @IBOutlet weak var textField: UITextField!
