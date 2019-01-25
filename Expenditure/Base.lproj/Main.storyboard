@@ -151,17 +151,16 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="备注:" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QfD-2f-X0F">
-                                <rect key="frame" x="62" y="484" width="297" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bih-WV-x8l">
-                                <rect key="frame" x="16" y="484" width="31" height="30"/>
+                                <rect key="frame" x="16" y="213" width="133" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="今天"/>
+                                <connections>
+                                    <action selector="datePickerButton:" destination="KkU-Gm-rlb" eventType="touchUpInside" id="ZCX-Z3-2d6"/>
+                                    <segue destination="s4J-wW-mRG" kind="popoverPresentation" popoverAnchorView="bih-WV-x8l" id="NAm-Na-7kR">
+                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                    </segue>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="金额" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vmv-P6-JBq">
                                 <rect key="frame" x="24" y="152" width="35" height="21"/>
@@ -177,6 +176,13 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="phonePad" returnKeyType="done"/>
                             </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="备注:" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QfD-2f-X0F">
+                                <rect key="frame" x="16" y="490" width="263" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="n7p-tc-fc2"/>
@@ -185,7 +191,7 @@
                         <barButtonItem key="rightBarButtonItem" title="保存" id="Dz1-0C-bSk"/>
                     </navigationItem>
                     <connections>
-                        <outlet property="datePickerButton" destination="bih-WV-x8l" id="NOS-7e-UhT"/>
+                        <outlet property="datePickerOutlet" destination="bih-WV-x8l" id="07D-3X-DDe"/>
                         <outlet property="expenceNumberTextField" destination="w3t-B4-T9l" id="rZk-1K-NxM"/>
                         <outlet property="textField" destination="QfD-2f-X0F" id="Um7-lI-hc1"/>
                     </connections>
@@ -193,6 +199,65 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f3N-qa-sOH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="192.80000000000001" y="-181.0344827586207"/>
+        </scene>
+        <!--Date PickerVC-->
+        <scene sceneID="kcp-IJ-NJg">
+            <objects>
+                <viewController id="s4J-wW-mRG" customClass="DatePickerVC" customModule="Expenditure" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="QWk-VM-OSE">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="e6u-Yq-hKa">
+                                <rect key="frame" x="70" y="323" width="235" height="166"/>
+                                <subviews>
+                                    <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="YaJ-vX-4co">
+                                        <rect key="frame" x="0.0" y="0.0" width="235" height="114"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="235" id="E4z-Bo-7Fy"/>
+                                            <constraint firstAttribute="height" constant="114" id="tj7-8K-qxw"/>
+                                        </constraints>
+                                        <date key="date" timeIntervalSinceReferenceDate="570066321.86400795">
+                                            <!--2019-01-24 23:45:21 +0000-->
+                                        </date>
+                                        <connections>
+                                            <action selector="datePicker:" destination="s4J-wW-mRG" eventType="valueChanged" id="wNI-Fh-vki"/>
+                                        </connections>
+                                    </datePicker>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WIh-er-MIe">
+                                        <rect key="frame" x="0.0" y="122" width="235" height="44"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="235" id="gQN-gw-vPx"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                        <state key="normal" title="确定"/>
+                                        <connections>
+                                            <action selector="confirmButton:" destination="s4J-wW-mRG" eventType="touchUpInside" id="VtI-X6-Md2"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="235" id="agQ-8k-mJ6"/>
+                                    <constraint firstAttribute="height" constant="166" id="x4c-st-Sl9"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="e6u-Yq-hKa" firstAttribute="centerX" secondItem="QWk-VM-OSE" secondAttribute="centerX" id="1uw-fj-nv8"/>
+                            <constraint firstItem="e6u-Yq-hKa" firstAttribute="centerY" secondItem="QWk-VM-OSE" secondAttribute="centerY" id="OMj-8M-BlX"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="yRY-N2-goA"/>
+                    </view>
+                    <connections>
+                        <outlet property="datePickerOutlet" destination="YaJ-vX-4co" id="cAb-fr-l2Q"/>
+                        <outlet property="stackView" destination="e6u-Yq-hKa" id="5YK-IQ-O7h"/>
+                        <outlet property="topleverlView" destination="QWk-VM-OSE" id="Kqx-Ff-KrP"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="68H-X3-e3x" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1080.8" y="-181.0344827586207"/>
         </scene>
     </scenes>
 </document>

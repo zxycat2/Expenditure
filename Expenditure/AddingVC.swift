@@ -10,11 +10,17 @@ import UIKit
 
 
 
-class AddingVC: UIViewController, UITextFieldDelegate{
+class AddingVC: UIViewController, UITextFieldDelegate, UIPopoverPresentationControllerDelegate{
     
     @IBOutlet weak var expenceNumberTextField: UITextField!
     
-    @IBOutlet weak var datePickerButton: UIButton!
+    
+    @IBOutlet weak var datePickerOutlet: UIButton!
+    
+    @IBAction func datePickerButton(_ sender: UIButton) {
+    }
+    
+    
     
     
     //单击函数
@@ -39,7 +45,6 @@ class AddingVC: UIViewController, UITextFieldDelegate{
         //直接弹出输入金额的键盘
         self.expenceNumberTextField.becomeFirstResponder()
         
-        // Do any additional setup after loading the view.
     }
     
     //在监视到键盘变化后call的函数，把textView上移（或上移，具体根据textfield位置而定）
@@ -77,17 +82,37 @@ class AddingVC: UIViewController, UITextFieldDelegate{
     
     @IBOutlet weak var textField: UITextField!
     
-    
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+   
+    //准备datePicker popover的segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if let destination = segue.destination as? DatePickerVC{
+            let myPopoverPresentaionController = destination.popoverPresentationController
+            myPopoverPresentaionController?.delegate = self
+        }
     }
-    */
+    //关于popover的适配
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
+    }
+    //选择的日期
+    var selectedDate:Date = Date(){
+        didSet{
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyy-MM-dd HH:mm"
+            let stringTime = dateFormatter.string(from: self.selectedDate)
+            print(selectedDate)
+            self.datePickerOutlet.setTitle(stringTime, for: .normal)
+            
+        }
+    }
+    
+    func popoverPresentationControllerDidDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) {
+        if let datePickerVC = popoverPresentationController.presentedViewController as? DatePickerVC{
+            self.selectedDate = datePickerVC.datePickerOutlet.date
+        }
+    }
+    
+    
+    
 
 }
