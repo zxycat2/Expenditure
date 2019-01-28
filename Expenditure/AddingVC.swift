@@ -80,8 +80,8 @@ class AddingVC: UIViewController, UITextFieldDelegate, UIPopoverPresentationCont
         if textField == self.textField{
             self.updateExpenceAndDetail()
             self.checkEntryNumber()
-//            self.updateDatebase()
-//            self.navigationController?.popToRootViewController(animated: true);
+            self.updateDatebase()
+            self.navigationController?.popToRootViewController(animated: true);
         }
         return true
     }

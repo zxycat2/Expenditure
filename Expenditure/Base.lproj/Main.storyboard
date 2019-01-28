@@ -57,7 +57,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="d3M-EQ-SGA" customClass="MainPageTableViewCell" customModule="Expenditure" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="regularCell" id="d3M-EQ-SGA" customClass="MainPageTableViewCell" customModule="Expenditure" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="d3M-EQ-SGA" id="7ZI-1B-GUt">
@@ -115,7 +115,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="F2h-YC-R9l"/>
                     <connections>
-                        <outlet property="tableView" destination="sz9-cQ-6on" id="Qcj-F5-m4r"/>
+                        <outlet property="myTableView" destination="sz9-cQ-6on" id="WG9-jt-3uH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UsV-46-jMW" userLabel="First Responder" sceneMemberID="firstResponder"/>
