@@ -9,9 +9,24 @@
 import UIKit
 import CoreData
 
-class mainPageVC: UIViewController,NSFetchedResultsControllerDelegate,UITableViewDelegate, UITableViewDataSource {
+class mainPageVC: UIViewController,NSFetchedResultsControllerDelegate,UITableViewDelegate, UITableViewDataSource, UIPopoverPresentationControllerDelegate {
     
     @IBOutlet weak var myTableView: UITableView!
+    
+    @IBAction func datePickerButton(_ sender: UIButton) {
+    }
+    @IBOutlet weak var datePickerOutlet: UIButton!
+    //准备datePicker popover的segue(要改成只显示日期不显示时间)
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "popSegue"{
+            if let destination = segue.destination as? DatePickerVC{
+                let myPopoverPresentaionController = destination.popoverPresentationController
+                myPopoverPresentaionController?.delegate = self
+                destination.datePickerOutlet.datePickerMode = .date
+            }
+        }
+    }
+    
     
     
     //NSFetchedResultsControllerDelegate相关
@@ -25,6 +40,10 @@ class mainPageVC: UIViewController,NSFetchedResultsControllerDelegate,UITableVie
         case .delete: self.myTableView.deleteSections([sectionIndex], with: .fade)
         default: break
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.updateTable()
     }
     
     public func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
@@ -52,12 +71,19 @@ class mainPageVC: UIViewController,NSFetchedResultsControllerDelegate,UITableVie
         self.dateToSearch = Date()
         //
         super.viewDidLoad()
+        //初始化
+        self.myTableView.delegate = self
+        self.myTableView.dataSource = self
 
         // Do any additional setup after loading the view.
     }
     //fetchedResult 相关
     var dateToSearch:Date?{
         didSet{
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyy-MM-dd"
+            let stringTime = dateFormatter.string(from: self.dateToSearch!)
+            self.datePickerOutlet.setTitle(stringTime, for: .normal)
             self.updateTable()
         }
     }
@@ -76,6 +102,7 @@ class mainPageVC: UIViewController,NSFetchedResultsControllerDelegate,UITableVie
     var container = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer
     
     func updateTable() {
+        print("Update table")
         if let context = self.container?.viewContext,self.dateToSearch != nil{
             print("did the query")
             let request:NSFetchRequest<ExEntry> = ExEntry.fetchRequest()
@@ -92,7 +119,6 @@ class mainPageVC: UIViewController,NSFetchedResultsControllerDelegate,UITableVie
                 sectionNameKeyPath: nil,
                 cacheName: nil
             )
-            print(fetchedResultsController?.fetchedObjects?.count)
             fetchedResultsController?.delegate = self
             try?fetchedResultsController?.performFetch()
             self.myTableView.reloadData()
@@ -101,7 +127,7 @@ class mainPageVC: UIViewController,NSFetchedResultsControllerDelegate,UITableVie
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "regularCell", for: indexPath)
+        let cell = self.myTableView.dequeueReusableCell(withIdentifier: "regularCell", for: indexPath)
         let myCell = cell as! MainPageTableViewCell
         if let entry = fetchedResultsController?.object(at: indexPath){
             myCell.detailStringLabel.text = entry.detail ?? "?"

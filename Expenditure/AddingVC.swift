@@ -86,10 +86,10 @@ class AddingVC: UIViewController, UITextFieldDelegate, UIPopoverPresentationCont
         return true
     }
     
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        print("end editting")
-        self.updateExpenceAndDetail()
-    }
+//    func textFieldDidEndEditing(_ textField: UITextField) {
+//        print("end editting")
+//        self.updateExpenceAndDetail()
+//    }
     //把两个textFiled的值给本地变量
     func updateExpenceAndDetail(){
         if self.textField.text != ""{
@@ -104,6 +104,8 @@ class AddingVC: UIViewController, UITextFieldDelegate, UIPopoverPresentationCont
     var container = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer
     //更新数据库
     func updateDatebase(){
+        print("update database")
+        print("detail: " + self.detail)
         self.container?.performBackgroundTask{context in
             _ = ExEntry.updateDatabase(in: context, number: self.expenceNumber, category: self.category, detail: self.detail, dateTime: self.selectedDate)
             try? context.save()
@@ -121,7 +123,7 @@ class AddingVC: UIViewController, UITextFieldDelegate, UIPopoverPresentationCont
     //类别暂时还没有做！
     var expenceNumber = Float(0)
     var detail = ""
-    var category = "unknown"
+    var category = "类别空"
     
     
     @IBOutlet weak var textField: UITextField!
@@ -150,11 +152,11 @@ class AddingVC: UIViewController, UITextFieldDelegate, UIPopoverPresentationCont
         }
     }
     
-    func popoverPresentationControllerDidDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) {
-        if let datePickerVC = popoverPresentationController.presentedViewController as? DatePickerVC{
-            self.selectedDate = datePickerVC.datePickerOutlet.date
-        }
-    }
+//    func popoverPresentationControllerDidDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) {
+//        if let datePickerVC = popoverPresentationController.presentedViewController as? DatePickerVC{
+//            self.selectedDate = datePickerVC.datePickerOutlet.date
+//        }
+//    }
     
     
     

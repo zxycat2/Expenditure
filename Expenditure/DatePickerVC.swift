@@ -33,6 +33,9 @@ class DatePickerVC: UIViewController {
         if let addingVC = popoverPresentationController?.delegate as? AddingVC{
             addingVC.selectedDate = self.datePickerOutlet.date
         }
+        if let mainVC = popoverPresentationController?.delegate as? mainPageVC{
+            mainVC.dateToSearch = self.datePickerOutlet.date
+        }
         self.dismiss(animated: true, completion: nil)
     }
     

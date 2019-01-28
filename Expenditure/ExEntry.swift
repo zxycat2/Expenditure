@@ -14,6 +14,7 @@ class ExEntry: NSManagedObject {
         , category:String, detail:String, dateTime:Date) -> ExEntry{
         print("try to update")
         let entry = ExEntry(context: context)
+        entry.detail = detail
         entry.expence = number
         entry.dateTime = dateTime
         entry.category = category
