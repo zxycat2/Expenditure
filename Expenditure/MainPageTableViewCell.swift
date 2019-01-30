@@ -17,14 +17,16 @@ class MainPageTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
         // Configure the view for the selected state
     }
     @IBOutlet weak var detailStringLabel: UILabel!
     
     @IBOutlet weak var expenceNumberLabel: UILabel!
     
+    
     @IBOutlet weak var categoryLabel: UILabel!
+    
+    @IBOutlet weak var timeLabel: UILabel!
     
     var uuid:String? = nil
 }

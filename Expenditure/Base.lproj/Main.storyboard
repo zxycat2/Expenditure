@@ -72,7 +72,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="简述............" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WCw-Vi-xnf">
-                                                    <rect key="frame" x="217" y="11" width="143" height="21"/>
+                                                    <rect key="frame" x="174" y="12" width="97" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -83,7 +83,14 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="花费............" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ezz-PU-SS8">
-                                                    <rect key="frame" x="109" y="12" width="91" height="21"/>
+                                                    <rect key="frame" x="109" y="12" width="64" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="12:30 pm" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V5h-lW-1C7">
+                                                    <rect key="frame" x="279" y="12" width="72" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -95,6 +102,7 @@
                                             <outlet property="categoryLabel" destination="ZXv-sx-8yk" id="sUY-A1-Fhv"/>
                                             <outlet property="detailStringLabel" destination="WCw-Vi-xnf" id="VJg-cd-8p4"/>
                                             <outlet property="expenceNumberLabel" destination="ezz-PU-SS8" id="XQj-bA-la4"/>
+                                            <outlet property="timeLabel" destination="V5h-lW-1C7" id="zzA-0d-n2B"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -203,7 +211,11 @@
                         <viewLayoutGuide key="safeArea" id="n7p-tc-fc2"/>
                     </view>
                     <navigationItem key="navigationItem" id="W2t-Up-L9s">
-                        <barButtonItem key="rightBarButtonItem" title="保存" id="Dz1-0C-bSk"/>
+                        <barButtonItem key="rightBarButtonItem" title="保存" id="Dz1-0C-bSk">
+                            <connections>
+                                <action selector="saveButton:" destination="KkU-Gm-rlb" id="BsR-D3-hy9"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="datePickerOutlet" destination="bih-WV-x8l" id="07D-3X-DDe"/>
@@ -276,6 +288,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="NAm-Na-7kR"/>
+        <segue reference="JSp-K5-8oj"/>
     </inferredMetricsTieBreakers>
 </document>

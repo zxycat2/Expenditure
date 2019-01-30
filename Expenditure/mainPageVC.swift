@@ -105,11 +105,13 @@ class mainPageVC: UIViewController,NSFetchedResultsControllerDelegate,UITableVie
         self.myTableView.dataSource = self
         self.dateFormatterDateVer.dateFormat = "yyy-MM-dd"
         self.dateFormatterDateTimeVer.dateFormat = "yyy-MM-dd HH:mm"
+        self.dateFormatterTimeVer.dateFormat = "HH:mm"
         self.dateToSearch = Date()
         // Do any additional setup after loading the view.
     }
     let dateFormatterDateVer = DateFormatter()
     let dateFormatterDateTimeVer = DateFormatter()
+    let dateFormatterTimeVer = DateFormatter()
     //fetchedResult 相关
     //当前要搜索的日期相关
     func getUpperOrLowerDate(timeString:String) -> Date {
@@ -166,6 +168,14 @@ class mainPageVC: UIViewController,NSFetchedResultsControllerDelegate,UITableVie
         }
         
     }
+    //segue到addingPage
+//    @objc func segueWayToAddingFromExistingEntry(sender:UITapGestureRecognizer){
+//        if let cell = (sender.view as? MainPageTableViewCell){
+//            let destinationAddingPage = AddingVC()
+//            destinationAddingPage.isModifyingExistingEntry = true
+//            destinationAddingPage.
+//        }
+//    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.myTableView.dequeueReusableCell(withIdentifier: "regularCell", for: indexPath)
@@ -175,7 +185,13 @@ class mainPageVC: UIViewController,NSFetchedResultsControllerDelegate,UITableVie
             myCell.expenceNumberLabel.text = String(entry.expence) 
             myCell.categoryLabel.text = entry.category ?? "??"
             myCell.uuid = entry.uuid
+            let timeString = self.dateFormatterTimeVer.string(from: entry.dateTime!)
+            myCell.timeLabel.text = timeString
         }
+        //单击手势
+//        let singleTap = UITapGestureRecognizer(target: self, action: #selector(segueWayToAddingFromExistingEntry))
+//        singleTap.numberOfTapsRequired = 1
+//        myCell.addGestureRecognizer(singleTap)
         return myCell
     }
     

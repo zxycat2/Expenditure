@@ -19,8 +19,17 @@ class AddingVC: UIViewController, UITextFieldDelegate, UIPopoverPresentationCont
     
     @IBAction func datePickerButton(_ sender: UIButton) {
     }
+    @IBAction func saveButton(_ sender: UIBarButtonItem) {
+        self.allSortsOfUpdating()
+    }
     
+    func allSortsOfUpdating(){
+        self.updateExpenceAndDetail()
+        self.updateDatebase()
+        self.navigationController?.popToRootViewController(animated: true);
+    }
     
+    var isModifyingExistingEntry = false
     
     
     //单击函数
@@ -81,10 +90,7 @@ class AddingVC: UIViewController, UITextFieldDelegate, UIPopoverPresentationCont
         print("should return")
         self.textField.resignFirstResponder()
         if textField == self.textField{
-            self.updateExpenceAndDetail()
-            self.checkEntryNumber()
-            self.updateDatebase()
-            self.navigationController?.popToRootViewController(animated: true);
+            self.allSortsOfUpdating()
         }
         return true
     }
@@ -107,18 +113,12 @@ class AddingVC: UIViewController, UITextFieldDelegate, UIPopoverPresentationCont
     var container = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer
     //更新数据库
     func updateDatebase(){
-        print("update database")
-        print("detail: " + self.detail)
-        self.container?.performBackgroundTask{context in
-            _ = ExEntry.updateDatabase(in: context, number: self.expenceNumber, category: self.category, detail: self.detail, dateTime: self.selectedDate, uuid:self.uuid)
-            try? context.save()
-        }
-    }
-    //测试用，看看有几条entry
-    func checkEntryNumber(){
-        if let context = self.container?.viewContext{
-            if let entryCount = try? context.count(for: ExEntry.fetchRequest()){
-                print(entryCount)
+        if self.isModifyingExistingEntry {
+            print("is modifying existing entry")
+        }else{
+            self.container?.performBackgroundTask{context in
+                _ = ExEntry.updateDatabase(in: context, number: self.expenceNumber, category: self.category, detail: self.detail, dateTime: self.selectedDate, uuid:self.uuid)
+                try? context.save()
             }
         }
     }
