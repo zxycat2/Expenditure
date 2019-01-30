@@ -107,7 +107,7 @@ class AddingVC: UIViewController, UITextFieldDelegate, UIPopoverPresentationCont
         print("update database")
         print("detail: " + self.detail)
         self.container?.performBackgroundTask{context in
-            _ = ExEntry.updateDatabase(in: context, number: self.expenceNumber, category: self.category, detail: self.detail, dateTime: self.selectedDate)
+            _ = ExEntry.updateDatabase(in: context, number: self.expenceNumber, category: self.category, detail: self.detail, dateTime: self.selectedDate, uuid:self.uuid)
             try? context.save()
         }
     }
@@ -124,6 +124,7 @@ class AddingVC: UIViewController, UITextFieldDelegate, UIPopoverPresentationCont
     var expenceNumber = Float(0)
     var detail = ""
     var category = "渡渡鸟"
+    var uuid = NSUUID().uuidString
     
     
     @IBOutlet weak var textField: UITextField!

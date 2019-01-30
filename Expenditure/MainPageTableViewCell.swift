@@ -25,4 +25,6 @@ class MainPageTableViewCell: UITableViewCell {
     @IBOutlet weak var expenceNumberLabel: UILabel!
     
     @IBOutlet weak var categoryLabel: UILabel!
+    
+    var uuid:String? = nil
 }

@@ -11,14 +11,14 @@ import CoreData
 
 class ExEntry: NSManagedObject {
     class func updateDatabase(in context:NSManagedObjectContext, number:Float
-        , category:String, detail:String, dateTime:Date) -> ExEntry{
+        , category:String, detail:String, dateTime:Date, uuid:String) -> ExEntry{
         print("try to update")
         let entry = ExEntry(context: context)
         entry.detail = detail
         entry.expence = number
         entry.dateTime = dateTime
         entry.category = category
-        entry.uuid = NSUUID().uuidString
+        entry.uuid = uuid
         print("created!")
         return entry
     }

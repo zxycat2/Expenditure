@@ -30,7 +30,27 @@ class mainPageVC: UIViewController,NSFetchedResultsControllerDelegate,UITableVie
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
         return .none
     }
-    
+    //table滑动删除
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete{
+            let cellToBeDeletedsUUID = (tableView.cellForRow(at: indexPath) as! MainPageTableViewCell).uuid
+            //更新数据库
+            self.container?.viewContext.perform {
+                let contex = self.container?.viewContext
+                let request:NSFetchRequest<ExEntry> = ExEntry.fetchRequest()
+                request.sortDescriptors = [NSSortDescriptor(key: "dateTime", ascending: true)]
+                request.predicate = NSPredicate(format: "uuid = %@", cellToBeDeletedsUUID!)
+                let cellToBeDeleted = try?contex?.fetch(request)
+                if cellToBeDeleted != nil{
+                    contex!.delete((cellToBeDeleted!![0]) as NSManagedObject)
+                    print("deleted")
+                self.updateTable()
+                }
+            
+            }
+        
+        }
+    }
     
     
     //NSFetchedResultsControllerDelegate相关
@@ -138,6 +158,7 @@ class mainPageVC: UIViewController,NSFetchedResultsControllerDelegate,UITableVie
             myCell.detailStringLabel.text = entry.detail ?? "?"
             myCell.expenceNumberLabel.text = String(entry.expence) 
             myCell.categoryLabel.text = entry.category ?? "??"
+            myCell.uuid = entry.uuid
         }
         return myCell
     }
