@@ -139,11 +139,12 @@
                     <connections>
                         <outlet property="datePickerOutlet" destination="7Gg-F1-BHv" id="edR-5C-CYQ"/>
                         <outlet property="myTableView" destination="sz9-cQ-6on" id="WG9-jt-3uH"/>
+                        <segue destination="KkU-Gm-rlb" kind="show" identifier="modifyExistingEntry" id="RSC-md-lbf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UsV-46-jMW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-679.20000000000005" y="-181.0344827586207"/>
+            <point key="canvasLocation" x="-730" y="-168"/>
         </scene>
         <!--AddingVC-->
         <scene sceneID="D0e-b0-EOR">
@@ -289,5 +290,6 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="JSp-K5-8oj"/>
+        <segue reference="RSC-md-lbf"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -26,6 +26,16 @@ class mainPageVC: UIViewController,NSFetchedResultsControllerDelegate,UITableVie
                 destination.preSelectedDate = self.dateToSearch
             }
         }
+        if segue.identifier == "modifyExistingEntry"{
+            if let cell = ((sender as? UIGestureRecognizer)?.view as? MainPageTableViewCell){
+                print("Did prepare!!!!!!!!!!!!!!!")
+                let destinationAddingPage = segue.destination as! AddingVC
+                destinationAddingPage.isModifyingExistingEntry = true
+                destinationAddingPage.uuid = cell.uuid!
+                print(destinationAddingPage.uuid)
+            }
+        }
+        
     }
     //关于popover的适配
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
@@ -169,13 +179,14 @@ class mainPageVC: UIViewController,NSFetchedResultsControllerDelegate,UITableVie
         
     }
     //segue到addingPage
-//    @objc func segueWayToAddingFromExistingEntry(sender:UITapGestureRecognizer){
-//        if let cell = (sender.view as? MainPageTableViewCell){
-//            let destinationAddingPage = AddingVC()
-//            destinationAddingPage.isModifyingExistingEntry = true
-//            destinationAddingPage.
-//        }
-//    }
+    @objc func segueWayToAddingFromExistingEntry(sender:UITapGestureRecognizer){
+        if let cell = (sender.view as? MainPageTableViewCell){
+            let destinationAddingPage = AddingVC()
+            destinationAddingPage.isModifyingExistingEntry = true
+            destinationAddingPage.uuid = cell.uuid!
+            performSegue(withIdentifier: "modifyExistingEntry", sender: sender)
+        }
+    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.myTableView.dequeueReusableCell(withIdentifier: "regularCell", for: indexPath)
@@ -189,9 +200,9 @@ class mainPageVC: UIViewController,NSFetchedResultsControllerDelegate,UITableVie
             myCell.timeLabel.text = timeString
         }
         //单击手势
-//        let singleTap = UITapGestureRecognizer(target: self, action: #selector(segueWayToAddingFromExistingEntry))
-//        singleTap.numberOfTapsRequired = 1
-//        myCell.addGestureRecognizer(singleTap)
+        let singleTap = UITapGestureRecognizer(target: self, action: #selector(segueWayToAddingFromExistingEntry))
+        singleTap.numberOfTapsRequired = 1
+        myCell.addGestureRecognizer(singleTap)
         return myCell
     }
     

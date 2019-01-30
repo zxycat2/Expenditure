@@ -30,7 +30,7 @@ class AddingVC: UIViewController, UITextFieldDelegate, UIPopoverPresentationCont
     }
     
     var isModifyingExistingEntry = false
-    
+    var exisingEntry:ExEntry? = nil
     
     //单击函数
     @objc func singelTabpFunction(sender:UITapGestureRecognizer){
@@ -54,10 +54,28 @@ class AddingVC: UIViewController, UITextFieldDelegate, UIPopoverPresentationCont
         //直接弹出输入金额的键盘
         self.expenceNumberTextField.becomeFirstResponder()
         //
-        self.dateFormatterDateVer.dateFormat = "yyy-MM-dd"
+        //如果是在编辑已创建的entry的话
+        if self.isModifyingExistingEntry{
+            self.container?.viewContext.perform {
+                let contex = self.container?.viewContext
+                let request:NSFetchRequest<ExEntry> = ExEntry.fetchRequest()
+                request.sortDescriptors = [NSSortDescriptor(key: "dateTime", ascending: true)]
+                request.predicate = NSPredicate(format: "uuid = %@", self.uuid)
+                let fetchedExistingEntry = try?contex?.fetch(request)
+                if fetchedExistingEntry != nil{
+                    self.exisingEntry = fetchedExistingEntry!![0]
+                    //设置本地变量
+                    self.selectedDate = (self.exisingEntry?.dateTime)!
+                    self.category = (self.exisingEntry?.category)!
+                    self.detail = (self.exisingEntry?.detail)!
+                    self.textField.text = (self.exisingEntry?.detail)!
+                    self.expenceNumber = (self.exisingEntry?.expence)!
+                    self.expenceNumberTextField.text = String((self.exisingEntry?.expence)!)
+                }
+            }
+        }
         
     }
-    var dateFormatterDateVer = DateFormatter()
     
     //在监视到键盘变化后call的函数，把textView上移（或上移，具体根据textfield位置而定）
     @objc func keyboardPositionDidChange(_ notification:Notification){
@@ -114,7 +132,10 @@ class AddingVC: UIViewController, UITextFieldDelegate, UIPopoverPresentationCont
     //更新数据库
     func updateDatebase(){
         if self.isModifyingExistingEntry {
-            print("is modifying existing entry")
+            self.exisingEntry?.dateTime = self.selectedDate
+            self.exisingEntry?.category = self.category
+            self.exisingEntry?.detail = self.detail
+            self.exisingEntry?.expence = self.expenceNumber
         }else{
             self.container?.performBackgroundTask{context in
                 _ = ExEntry.updateDatabase(in: context, number: self.expenceNumber, category: self.category, detail: self.detail, dateTime: self.selectedDate, uuid:self.uuid)
@@ -151,9 +172,9 @@ class AddingVC: UIViewController, UITextFieldDelegate, UIPopoverPresentationCont
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyy-MM-dd HH:mm"
             let stringTime = dateFormatter.string(from: self.selectedDate)
-            //如果是今天的话就显示“今天”
-            let dateToSearchString = self.dateFormatterDateVer.string(from: self.selectedDate)
-            let todayDateString = self.dateFormatterDateVer.string(from: Date())
+            //如果是今天的话就显示“现在”
+            let dateToSearchString = dateFormatter.string(from: self.selectedDate)
+            let todayDateString = dateFormatter.string(from: Date())
             if dateToSearchString == todayDateString{
                 self.datePickerOutlet.setTitle("现在", for: .normal)
             }else{
