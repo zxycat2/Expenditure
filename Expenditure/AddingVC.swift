@@ -44,8 +44,11 @@ class AddingVC: UIViewController, UITextFieldDelegate, UIPopoverPresentationCont
         NotificationCenter.default.addObserver(self,selector:#selector(self.keyboardPositionDidChange(_:)),name:UIResponder.keyboardWillChangeFrameNotification, object: nil)
         //直接弹出输入金额的键盘
         self.expenceNumberTextField.becomeFirstResponder()
+        //
+        self.dateFormatterDateVer.dateFormat = "yyy-MM-dd"
         
     }
+    var dateFormatterDateVer = DateFormatter()
     
     //在监视到键盘变化后call的函数，把textView上移（或上移，具体根据textfield位置而定）
     @objc func keyboardPositionDidChange(_ notification:Notification){
@@ -135,6 +138,7 @@ class AddingVC: UIViewController, UITextFieldDelegate, UIPopoverPresentationCont
         if let destination = segue.destination as? DatePickerVC{
             let myPopoverPresentaionController = destination.popoverPresentationController
             myPopoverPresentaionController?.delegate = self
+            destination.preSelectedDate = self.selectedDate
         }
     }
     //关于popover的适配
@@ -147,8 +151,14 @@ class AddingVC: UIViewController, UITextFieldDelegate, UIPopoverPresentationCont
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyy-MM-dd HH:mm"
             let stringTime = dateFormatter.string(from: self.selectedDate)
-            print(selectedDate)
-            self.datePickerOutlet.setTitle(stringTime, for: .normal)
+            //如果是今天的话就显示“今天”
+            let dateToSearchString = self.dateFormatterDateVer.string(from: self.selectedDate)
+            let todayDateString = self.dateFormatterDateVer.string(from: Date())
+            if dateToSearchString == todayDateString{
+                self.datePickerOutlet.setTitle("现在", for: .normal)
+            }else{
+                self.datePickerOutlet.setTitle(stringTime, for: .normal)
+            }
             
         }
     }

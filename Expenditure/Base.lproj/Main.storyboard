@@ -169,7 +169,7 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bih-WV-x8l">
                                 <rect key="frame" x="16" y="213" width="133" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="今天"/>
+                                <state key="normal" title="现在"/>
                                 <connections>
                                     <action selector="datePickerButton:" destination="KkU-Gm-rlb" eventType="touchUpInside" id="ZCX-Z3-2d6"/>
                                     <segue destination="s4J-wW-mRG" kind="popoverPresentation" popoverAnchorView="bih-WV-x8l" id="NAm-Na-7kR">
@@ -276,6 +276,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="JSp-K5-8oj"/>
+        <segue reference="NAm-Na-7kR"/>
     </inferredMetricsTieBreakers>
 </document>

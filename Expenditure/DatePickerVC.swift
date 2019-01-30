@@ -13,11 +13,17 @@ class DatePickerVC: UIViewController {
     let marginSize = CGFloat(bitPattern: 0)
     
     var myDatePickerMode = "Default"
+    var preSelectedDate:Date? = nil
 
     override func viewDidLoad() {
         super.viewDidLoad()
         if self.myDatePickerMode == "Just Date"{
             self.datePickerOutlet.datePickerMode = .date
+        }else{
+            self.datePickerOutlet.datePickerMode = .dateAndTime
+        }
+        if preSelectedDate != nil{
+            self.datePickerOutlet.setDate(self.preSelectedDate!, animated: true)
         }
         // Do any additional setup after loading the view.
     }

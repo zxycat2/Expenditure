@@ -23,6 +23,7 @@ class mainPageVC: UIViewController,NSFetchedResultsControllerDelegate,UITableVie
                 let myPopoverPresentaionController = destination.popoverPresentationController
                 myPopoverPresentaionController?.delegate = self
                 destination.myDatePickerMode = "Just Date"
+                destination.preSelectedDate = self.dateToSearch
             }
         }
     }
@@ -117,12 +118,21 @@ class mainPageVC: UIViewController,NSFetchedResultsControllerDelegate,UITableVie
     var dateToSearchLower:Date{
         return self.getUpperOrLowerDate(timeString: " 00:00")
     }
+    //已选定日期
     var dateToSearch:Date?{
         didSet{
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyy-MM-dd"
             let stringTime = dateFormatter.string(from: self.dateToSearch!)
-            self.datePickerOutlet.setTitle(stringTime, for: .normal)
+            //如果是今天的话就显示“今天”
+            let dateToSearchString = self.dateFormatterDateVer.string(from: self.dateToSearch!)
+            let todayDateString = self.dateFormatterDateVer.string(from: Date())
+            if dateToSearchString == todayDateString{
+                self.datePickerOutlet.setTitle("今天", for: .normal)
+            }else{
+                self.datePickerOutlet.setTitle(stringTime, for: .normal)
+            }
+            
             self.updateTable()
         }
     }
