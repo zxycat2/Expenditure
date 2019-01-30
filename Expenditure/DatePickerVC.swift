@@ -11,9 +11,14 @@ import UIKit
 class DatePickerVC: UIViewController {
     
     let marginSize = CGFloat(bitPattern: 0)
+    
+    var myDatePickerMode = "Default"
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        if self.myDatePickerMode == "Just Date"{
+            self.datePickerOutlet.datePickerMode = .date
+        }
         // Do any additional setup after loading the view.
     }
     
@@ -32,9 +37,11 @@ class DatePickerVC: UIViewController {
     @IBAction func confirmButton(_ sender: Any) {
         if let addingVC = popoverPresentationController?.delegate as? AddingVC{
             addingVC.selectedDate = self.datePickerOutlet.date
+            print("1")
         }
         if let mainVC = popoverPresentationController?.delegate as? mainPageVC{
             mainVC.dateToSearch = self.datePickerOutlet.date
+            print("2")
         }
         self.dismiss(animated: true, completion: nil)
     }

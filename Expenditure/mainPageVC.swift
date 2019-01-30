@@ -16,15 +16,19 @@ class mainPageVC: UIViewController,NSFetchedResultsControllerDelegate,UITableVie
     @IBAction func datePickerButton(_ sender: UIButton) {
     }
     @IBOutlet weak var datePickerOutlet: UIButton!
-    //准备datePicker popover的segue(要改成只显示日期不显示时间)
+    //准备datePicker popover的segue(只显示日期不显示时间)
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "popSegue"{
             if let destination = segue.destination as? DatePickerVC{
                 let myPopoverPresentaionController = destination.popoverPresentationController
                 myPopoverPresentaionController?.delegate = self
-                destination.datePickerOutlet.datePickerMode = .date
+                destination.myDatePickerMode = "Just Date"
             }
         }
+    }
+    //关于popover的适配
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
     }
     
     
@@ -78,6 +82,25 @@ class mainPageVC: UIViewController,NSFetchedResultsControllerDelegate,UITableVie
         // Do any additional setup after loading the view.
     }
     //fetchedResult 相关
+    //当前要搜索的 日期
+    var dateToSearchUpper:Date{
+        let dateString = self.dateFormatterToSearch.string(from: self.dateToSearch!)
+        let dateTimeString = dateString + " 24:00"
+        let dateTime = self.dateFormatterToDisplay.date(from: dateTimeString)
+        print(dateTime)
+        return dateTime!
+    }
+    var dateToSearchLower:Date{
+        print("DateToSearch")
+        print(self.dateToSearch)
+        let dateString = self.dateFormatterToSearch.string(from: self.dateToSearch!)
+        print(dateString)
+        let dateTimeString = dateString + " 00:00"
+        print(dateTimeString)
+        let dateTime = self.dateFormatterToDisplay.date(from: dateTimeString)
+        print(dateTime)
+        return dateTime!
+    }
     var dateToSearch:Date?{
         didSet{
             let dateFormatter = DateFormatter()
@@ -107,12 +130,8 @@ class mainPageVC: UIViewController,NSFetchedResultsControllerDelegate,UITableVie
             print("did the query")
             let request:NSFetchRequest<ExEntry> = ExEntry.fetchRequest()
             request.sortDescriptors = [NSSortDescriptor(key: "dateTime", ascending: true)]
-//            request.predicate = NSPredicate(format: "ANY expence < %f", Float(100))
-            //测试
-//            if let entryCount = try? context.count(for: ExEntry.fetchRequest()){
-//                print(entryCount)
-//            }
-            //
+            request.predicate = NSPredicate(format: "%@ < dateTime < %@", self.dateToSearchLower as CVarArg, self.dateToSearchUpper as CVarArg)
+
             self.fetchedResultsController = NSFetchedResultsController<ExEntry>(
                 fetchRequest: request,
                 managedObjectContext: context,

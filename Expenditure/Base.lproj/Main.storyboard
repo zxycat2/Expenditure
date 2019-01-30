@@ -118,6 +118,9 @@
                                 <state key="normal" title="今天"/>
                                 <connections>
                                     <action selector="datePickerButton:" destination="74p-GW-guA" eventType="touchUpInside" id="K8H-rH-99L"/>
+                                    <segue destination="s4J-wW-mRG" kind="popoverPresentation" identifier="popSegue" popoverAnchorView="7Gg-F1-BHv" id="JSp-K5-8oj">
+                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                    </segue>
                                 </connections>
                             </button>
                         </subviews>
@@ -221,12 +224,12 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="e6u-Yq-hKa">
-                                <rect key="frame" x="70" y="323" width="235" height="166"/>
+                                <rect key="frame" x="67.666666666666686" y="323" width="240" height="166"/>
                                 <subviews>
-                                    <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="YaJ-vX-4co">
-                                        <rect key="frame" x="0.0" y="0.0" width="235" height="114"/>
+                                    <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="YaJ-vX-4co">
+                                        <rect key="frame" x="0.0" y="0.0" width="240" height="114"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="235" id="E4z-Bo-7Fy"/>
+                                            <constraint firstAttribute="width" constant="240" id="E4z-Bo-7Fy"/>
                                             <constraint firstAttribute="height" constant="114" id="tj7-8K-qxw"/>
                                         </constraints>
                                         <date key="date" timeIntervalSinceReferenceDate="570066321.86400795">
@@ -237,7 +240,7 @@
                                         </connections>
                                     </datePicker>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WIh-er-MIe">
-                                        <rect key="frame" x="0.0" y="122" width="235" height="44"/>
+                                        <rect key="frame" x="2.3333333333333286" y="122" width="235" height="44"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="235" id="gQN-gw-vPx"/>
                                         </constraints>
@@ -249,15 +252,15 @@
                                     </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="235" id="agQ-8k-mJ6"/>
+                                    <constraint firstAttribute="width" constant="240" id="agQ-8k-mJ6"/>
                                     <constraint firstAttribute="height" constant="166" id="x4c-st-Sl9"/>
                                 </constraints>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="e6u-Yq-hKa" firstAttribute="centerX" secondItem="QWk-VM-OSE" secondAttribute="centerX" id="1uw-fj-nv8"/>
-                            <constraint firstItem="e6u-Yq-hKa" firstAttribute="centerY" secondItem="QWk-VM-OSE" secondAttribute="centerY" id="OMj-8M-BlX"/>
+                            <constraint firstItem="e6u-Yq-hKa" firstAttribute="centerX" secondItem="QWk-VM-OSE" secondAttribute="centerX" id="NSi-4r-o8h"/>
+                            <constraint firstItem="e6u-Yq-hKa" firstAttribute="centerY" secondItem="QWk-VM-OSE" secondAttribute="centerY" id="bZ5-rk-JIe"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="yRY-N2-goA"/>
                     </view>
@@ -269,7 +272,10 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="68H-X3-e3x" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1080.8" y="-181.0344827586207"/>
+            <point key="canvasLocation" x="998" y="-905"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="JSp-K5-8oj"/>
+    </inferredMetricsTieBreakers>
 </document>
