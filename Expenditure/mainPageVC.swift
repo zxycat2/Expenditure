@@ -52,6 +52,12 @@ class mainPageVC: UIViewController,NSFetchedResultsControllerDelegate,UITableVie
         
         }
     }
+    //table反向滑
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        return UISwipeActionsConfiguration(actions: [UIContextualAction(style: .normal, title: "滑反了，傻逼", handler: {_,_,_ in
+            //反着滑动执行的操作，目前还没有
+        })])
+    }
     
     
     //NSFetchedResultsControllerDelegate相关
