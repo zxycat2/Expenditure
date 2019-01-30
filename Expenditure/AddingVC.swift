@@ -123,7 +123,7 @@ class AddingVC: UIViewController, UITextFieldDelegate, UIPopoverPresentationCont
     //类别暂时还没有做！
     var expenceNumber = Float(0)
     var detail = ""
-    var category = "类别空"
+    var category = "渡渡鸟"
     
     
     @IBOutlet weak var textField: UITextField!

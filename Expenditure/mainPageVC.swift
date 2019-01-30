@@ -71,35 +71,31 @@ class mainPageVC: UIViewController,NSFetchedResultsControllerDelegate,UITableVie
     
 
     override func viewDidLoad() {
-        //测试用
-        self.dateToSearch = Date()
         //
         super.viewDidLoad()
         //初始化
         self.myTableView.delegate = self
         self.myTableView.dataSource = self
-
+        self.dateFormatterDateVer.dateFormat = "yyy-MM-dd"
+        self.dateFormatterDateTimeVer.dateFormat = "yyy-MM-dd HH:mm"
+        self.dateToSearch = Date()
         // Do any additional setup after loading the view.
     }
+    let dateFormatterDateVer = DateFormatter()
+    let dateFormatterDateTimeVer = DateFormatter()
     //fetchedResult 相关
-    //当前要搜索的 日期
-    var dateToSearchUpper:Date{
-        let dateString = self.dateFormatterToSearch.string(from: self.dateToSearch!)
-        let dateTimeString = dateString + " 24:00"
-        let dateTime = self.dateFormatterToDisplay.date(from: dateTimeString)
-        print(dateTime)
+    //当前要搜索的日期相关
+    func getUpperOrLowerDate(timeString:String) -> Date {
+        let dateString = self.dateFormatterDateVer.string(from: self.dateToSearch!)
+        let dateTimeString = dateString + timeString
+        let dateTime = self.dateFormatterDateTimeVer.date(from: dateTimeString)
         return dateTime!
     }
+    var dateToSearchUpper:Date{
+        return self.getUpperOrLowerDate(timeString: " 23:59")
+    }
     var dateToSearchLower:Date{
-        print("DateToSearch")
-        print(self.dateToSearch)
-        let dateString = self.dateFormatterToSearch.string(from: self.dateToSearch!)
-        print(dateString)
-        let dateTimeString = dateString + " 00:00"
-        print(dateTimeString)
-        let dateTime = self.dateFormatterToDisplay.date(from: dateTimeString)
-        print(dateTime)
-        return dateTime!
+        return self.getUpperOrLowerDate(timeString: " 00:00")
     }
     var dateToSearch:Date?{
         didSet{
@@ -108,16 +104,6 @@ class mainPageVC: UIViewController,NSFetchedResultsControllerDelegate,UITableVie
             let stringTime = dateFormatter.string(from: self.dateToSearch!)
             self.datePickerOutlet.setTitle(stringTime, for: .normal)
             self.updateTable()
-        }
-    }
-    var dateFormatterToSearch = DateFormatter(){
-        didSet{
-            self.dateFormatterToSearch.dateFormat = "yyy-MM-dd"
-        }
-    }
-    var dateFormatterToDisplay = DateFormatter(){
-        didSet{
-            self.dateFormatterToDisplay.dateFormat = "yyy-MM-dd HH:mm"
         }
     }
     
@@ -130,7 +116,7 @@ class mainPageVC: UIViewController,NSFetchedResultsControllerDelegate,UITableVie
             print("did the query")
             let request:NSFetchRequest<ExEntry> = ExEntry.fetchRequest()
             request.sortDescriptors = [NSSortDescriptor(key: "dateTime", ascending: true)]
-            request.predicate = NSPredicate(format: "%@ < dateTime < %@", self.dateToSearchLower as CVarArg, self.dateToSearchUpper as CVarArg)
+            request.predicate = NSPredicate(format: "dateTime BETWEEN { %@ , %@ }", self.dateToSearchLower as CVarArg, self.dateToSearchUpper as CVarArg)
 
             self.fetchedResultsController = NSFetchedResultsController<ExEntry>(
                 fetchRequest: request,
