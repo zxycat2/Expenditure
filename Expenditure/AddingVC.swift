@@ -11,7 +11,41 @@ import CoreData
 
 
 
-class AddingVC: UIViewController, UITextFieldDelegate, UIPopoverPresentationControllerDelegate{
+class AddingVC: UIViewController, UITextFieldDelegate, UIPopoverPresentationControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
+    //collectionView stuff
+    //Colletion View Mole
+    
+    @IBOutlet weak var myCollectionView: UICollectionView!{
+        didSet{
+            self.myCollectionView.dataSource = self
+            self.myCollectionView.delegate = self
+        }
+    }
+    var myCollectionViewModel = ["coffee", "electronicDevices", "game", "hotel", "restaurant", "shopping", "sim", "traffic", "travel"]
+    //Number of cell
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.myCollectionViewModel.count
+    }
+    //Configure each cell
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let myCell = self.myCollectionView.dequeueReusableCell(withReuseIdentifier: "myRegularCell", for: indexPath) as! MyCustomCollectionViewCell
+        myCell.nameLabel.text = self.myCollectionViewModel[indexPath.item]
+        myCell.imageView.image = UIImage(named: self.myCollectionViewModel[indexPath.item])
+        //手势
+        let tap = UITapGestureRecognizer(target: self, action:  #selector(chooseCategory))
+        myCell.addGestureRecognizer(tap)
+        return myCell
+    }
+    //单击后执行选择
+    @objc func chooseCategory(sender: UITapGestureRecognizer){
+        self.category = ((sender.view as? MyCustomCollectionViewCell)?.nameLabel.text)!
+    }
+    //cell大小(目前是1/5的边长)
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let screenLength = self.view.frame.width
+        return CGSize(width: screenLength/5, height: screenLength/5)
+    }
+    //var
     
     @IBOutlet weak var expenceNumberTextField: UITextField!
     

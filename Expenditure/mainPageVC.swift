@@ -178,6 +178,7 @@ class mainPageVC: UIViewController,NSFetchedResultsControllerDelegate,UITableVie
         }
         
     }
+    
     //segue到addingPage
     @objc func segueWayToAddingFromExistingEntry(sender:UITapGestureRecognizer){
         if let cell = (sender.view as? MainPageTableViewCell){
@@ -187,7 +188,7 @@ class mainPageVC: UIViewController,NSFetchedResultsControllerDelegate,UITableVie
             performSegue(withIdentifier: "modifyExistingEntry", sender: sender)
         }
     }
-    
+    //准备每个tableView的cell
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.myTableView.dequeueReusableCell(withIdentifier: "regularCell", for: indexPath)
         let myCell = cell as! MainPageTableViewCell
