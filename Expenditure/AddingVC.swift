@@ -30,15 +30,28 @@ class AddingVC: UIViewController, UITextFieldDelegate, UIPopoverPresentationCont
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let myCell = self.myCollectionView.dequeueReusableCell(withReuseIdentifier: "myRegularCell", for: indexPath) as! MyCustomCollectionViewCell
         myCell.nameLabel.text = self.myCollectionViewModel[indexPath.item]
-        myCell.imageView.image = UIImage(named: self.myCollectionViewModel[indexPath.item])
+        //根据是否选中决定颜色
+        if indexPath == self.selectedCellsIndexPath{
+            myCell.imageView.image = UIImage(named: "white_"+self.myCollectionViewModel[indexPath.item])
+            myCell.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+            myCell.nameLabel.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        }else{
+            myCell.imageView.image = UIImage(named: self.myCollectionViewModel[indexPath.item])
+            myCell.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+            myCell.nameLabel.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        }
         //手势
         let tap = UITapGestureRecognizer(target: self, action:  #selector(chooseCategory))
         myCell.addGestureRecognizer(tap)
         return myCell
     }
     //单击后执行选择
+    var selectedCellsIndexPath:IndexPath? = nil
     @objc func chooseCategory(sender: UITapGestureRecognizer){
-        self.category = ((sender.view as? MyCustomCollectionViewCell)?.nameLabel.text)!
+        let cell = (sender.view as! MyCustomCollectionViewCell)
+        self.category = cell.nameLabel.text!
+        self.selectedCellsIndexPath = self.myCollectionView.indexPath(for: cell)
+        self.myCollectionView.reloadData()
     }
     //cell大小(目前是1/5的边长)
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

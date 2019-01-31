@@ -28,5 +28,7 @@ class MainPageTableViewCell: UITableViewCell {
     
     @IBOutlet weak var timeLabel: UILabel!
     
+    @IBOutlet weak var iconImage: UIImageView!
+    
     var uuid:String? = nil
 }

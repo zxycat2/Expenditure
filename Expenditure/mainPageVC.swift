@@ -197,6 +197,12 @@ class mainPageVC: UIViewController,NSFetchedResultsControllerDelegate,UITableVie
             myCell.expenceNumberLabel.text = String(entry.expence) 
             myCell.categoryLabel.text = entry.category ?? "??"
             myCell.uuid = entry.uuid
+            //设置类别图标
+            if let iconImage = UIImage(named: entry.category ?? "??"){
+                myCell.iconImage.image = iconImage
+            }else{
+                myCell.iconImage.image = UIImage(named:"sadFace")
+            }
             let timeString = self.dateFormatterTimeVer.string(from: entry.dateTime!)
             myCell.timeLabel.text = timeString
         }

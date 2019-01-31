@@ -102,6 +102,7 @@
                                             <outlet property="categoryLabel" destination="ZXv-sx-8yk" id="sUY-A1-Fhv"/>
                                             <outlet property="detailStringLabel" destination="WCw-Vi-xnf" id="VJg-cd-8p4"/>
                                             <outlet property="expenceNumberLabel" destination="ezz-PU-SS8" id="XQj-bA-la4"/>
+                                            <outlet property="iconImage" destination="dyL-3B-PXF" id="ykM-X5-1Ql"/>
                                             <outlet property="timeLabel" destination="V5h-lW-1C7" id="zzA-0d-n2B"/>
                                         </connections>
                                     </tableViewCell>
