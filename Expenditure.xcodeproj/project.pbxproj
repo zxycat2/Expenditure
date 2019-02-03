@@ -19,9 +19,50 @@
 		BB877E8A21F7D7A000BFE382 /* ExEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB877E8921F7D7A000BFE382 /* ExEntry.swift */; };
 		BB877E8C21F7DF4F00BFE382 /* AddingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB877E8B21F7DF4F00BFE382 /* AddingVC.swift */; };
 		BB877E8E21FA860900BFE382 /* DatePickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB877E8D21FA860900BFE382 /* DatePickerVC.swift */; };
+		BBA82D7B220794EE001C86A6 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBA82D782207947E001C86A6 /* Charts.framework */; };
+		BBA82D7C220794EE001C86A6 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BBA82D782207947E001C86A6 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		BBA82D8122079A11001C86A6 /* StatisticsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA82D8022079A11001C86A6 /* StatisticsVC.swift */; };
 		BBD51FA321FE8B960093C945 /* FetchedResultsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD51FA221FE8B960093C945 /* FetchedResultsTableViewController.swift */; };
 		BBD51FA521FE8BAA0093C945 /* UITableViewDataSource+NSFetchedResultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD51FA421FE8BAA0093C945 /* UITableViewDataSource+NSFetchedResultsController.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		BBA82D772207947E001C86A6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BBA82D722207947E001C86A6 /* Charts.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 65AD9E95D9ED4DC0BD73A743;
+			remoteInfo = Charts;
+		};
+		BBA82D792207947E001C86A6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BBA82D722207947E001C86A6 /* Charts.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1CBBC58C6CE1EBEE9852CE41;
+			remoteInfo = ChartsTests;
+		};
+		BBA82D7D220794EE001C86A6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BBA82D722207947E001C86A6 /* Charts.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = A58A4ED274A941CA248EA921;
+			remoteInfo = Charts;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		BBA82D7F220794EE001C86A6 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				BBA82D7C220794EE001C86A6 /* Charts.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		BB32154B22036E2600A09EC5 /* MyCustomCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCustomCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -38,6 +79,8 @@
 		BB877E8921F7D7A000BFE382 /* ExEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExEntry.swift; sourceTree = "<group>"; };
 		BB877E8B21F7DF4F00BFE382 /* AddingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingVC.swift; sourceTree = "<group>"; };
 		BB877E8D21FA860900BFE382 /* DatePickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerVC.swift; sourceTree = "<group>"; };
+		BBA82D722207947E001C86A6 /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = "../../../../Downloads/Charts-master/Charts.xcodeproj"; sourceTree = "<group>"; };
+		BBA82D8022079A11001C86A6 /* StatisticsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsVC.swift; sourceTree = "<group>"; };
 		BBD51FA221FE8B960093C945 /* FetchedResultsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchedResultsTableViewController.swift; sourceTree = "<group>"; };
 		BBD51FA421FE8BAA0093C945 /* UITableViewDataSource+NSFetchedResultsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableViewDataSource+NSFetchedResultsController.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -47,6 +90,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BBA82D7B220794EE001C86A6 /* Charts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,9 +126,11 @@
 		BB877E6B21F7A2EC00BFE382 /* Expenditure */ = {
 			isa = PBXGroup;
 			children = (
+				BBA82D722207947E001C86A6 /* Charts.xcodeproj */,
 				BB877E6C21F7A2EC00BFE382 /* AppDelegate.swift */,
 				BB877E8921F7D7A000BFE382 /* ExEntry.swift */,
 				BB877E7021F7A2EC00BFE382 /* Main.storyboard */,
+				BBA82D8022079A11001C86A6 /* StatisticsVC.swift */,
 				BB877E8D21FA860900BFE382 /* DatePickerVC.swift */,
 				BB32154D2203796800A09EC5 /* Cells */,
 				BB877E8B21F7DF4F00BFE382 /* AddingVC.swift */,
@@ -95,6 +141,15 @@
 				BB877E8321F7D0BF00BFE382 /* mainPageVC.swift */,
 			);
 			path = Expenditure;
+			sourceTree = "<group>";
+		};
+		BBA82D732207947E001C86A6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BBA82D782207947E001C86A6 /* Charts.framework */,
+				BBA82D7A2207947E001C86A6 /* ChartsTests.xctest */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		BBD51FA621FE8BC70093C945 /* Core data thing */ = {
@@ -117,10 +172,12 @@
 				BB877E6521F7A2EC00BFE382 /* Sources */,
 				BB877E6621F7A2EC00BFE382 /* Frameworks */,
 				BB877E6721F7A2EC00BFE382 /* Resources */,
+				BBA82D7F220794EE001C86A6 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				BBA82D7E220794EE001C86A6 /* PBXTargetDependency */,
 			);
 			name = Expenditure;
 			productName = Expenditure;
@@ -153,12 +210,35 @@
 			mainGroup = BB877E6021F7A2EC00BFE382;
 			productRefGroup = BB877E6A21F7A2EC00BFE382 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = BBA82D732207947E001C86A6 /* Products */;
+					ProjectRef = BBA82D722207947E001C86A6 /* Charts.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				BB877E6821F7A2EC00BFE382 /* Expenditure */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		BBA82D782207947E001C86A6 /* Charts.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Charts.framework;
+			remoteRef = BBA82D772207947E001C86A6 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		BBA82D7A2207947E001C86A6 /* ChartsTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = ChartsTests.xctest;
+			remoteRef = BBA82D792207947E001C86A6 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		BB877E6721F7A2EC00BFE382 /* Resources */ = {
@@ -183,6 +263,7 @@
 				BBD51FA521FE8BAA0093C945 /* UITableViewDataSource+NSFetchedResultsController.swift in Sources */,
 				BB877E7521F7A2EC00BFE382 /* Expenditure.xcdatamodeld in Sources */,
 				BB877E8E21FA860900BFE382 /* DatePickerVC.swift in Sources */,
+				BBA82D8122079A11001C86A6 /* StatisticsVC.swift in Sources */,
 				BB877E8221F7D03100BFE382 /* FooTableVC.swift in Sources */,
 				BB877E8621F7D53700BFE382 /* MainPageTableViewCell.swift in Sources */,
 				BB877E8C21F7DF4F00BFE382 /* AddingVC.swift in Sources */,
@@ -193,6 +274,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		BBA82D7E220794EE001C86A6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Charts;
+			targetProxy = BBA82D7D220794EE001C86A6 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		BB877E7021F7A2EC00BFE382 /* Main.storyboard */ = {
@@ -333,6 +422,7 @@
 		BB877E7F21F7A2EE00BFE382 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = AU35KS39TB;
@@ -351,6 +441,7 @@
 		BB877E8021F7A2EE00BFE382 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = AU35KS39TB;

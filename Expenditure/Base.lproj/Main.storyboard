@@ -256,6 +256,39 @@
             </objects>
             <point key="canvasLocation" x="192.80000000000001" y="-181.0344827586207"/>
         </scene>
+        <!--StatisticsVC-->
+        <scene sceneID="yZr-GX-NkJ">
+            <objects>
+                <viewController id="7Zl-xt-1e2" customClass="StatisticsVC" customModule="Expenditure" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="r6Q-VM-maC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="scY-gF-GnB">
+                                <rect key="frame" x="84" y="73" width="207" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="月"/>
+                                    <segment title="年"/>
+                                </segments>
+                            </segmentedControl>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CP9-eM-lYC" customClass="LineChartView" customModule="Charts">
+                                <rect key="frame" x="16" y="126" width="343" height="202"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="TQ4-eb-VYN"/>
+                    </view>
+                    <connections>
+                        <outlet property="lineChartView" destination="CP9-eM-lYC" id="Dqz-U6-T2E"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="spf-k3-sQc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1228" y="-181.0344827586207"/>
+        </scene>
         <!--Date PickerVC-->
         <scene sceneID="kcp-IJ-NJg">
             <objects>
