@@ -25,6 +25,7 @@ class mainPageVC: UIViewController,NSFetchedResultsControllerDelegate,UITableVie
                 destination.myDatePickerMode = "Just Date"
                 destination.preSelectedDate = self.dateToSearch
             }
+            
         }
         if segue.identifier == "modifyExistingEntry"{
             if let cell = ((sender as? UIGestureRecognizer)?.view as? MainPageTableViewCell){
@@ -33,6 +34,13 @@ class mainPageVC: UIViewController,NSFetchedResultsControllerDelegate,UITableVie
                 destinationAddingPage.isModifyingExistingEntry = true
                 destinationAddingPage.uuid = cell.uuid!
                 print(destinationAddingPage.uuid)
+            }
+        }
+        if segue.identifier == "plusButton"{
+            if let destination = segue.destination as? AddingVC{
+                destination.dateSelectedBuffer = self.dateToSearch!
+                print("SelectedDate:")
+                print(destination.selectedDate)
             }
         }
         
@@ -185,6 +193,7 @@ class mainPageVC: UIViewController,NSFetchedResultsControllerDelegate,UITableVie
             let destinationAddingPage = AddingVC()
             destinationAddingPage.isModifyingExistingEntry = true
             destinationAddingPage.uuid = cell.uuid!
+            destinationAddingPage.selectedDate = self.dateToSearch!
             performSegue(withIdentifier: "modifyExistingEntry", sender: sender)
         }
     }
@@ -216,14 +225,10 @@ class mainPageVC: UIViewController,NSFetchedResultsControllerDelegate,UITableVie
     @IBAction func addButton(_ sender: Any) {
     }
     
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+ 
 
 }

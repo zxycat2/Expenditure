@@ -117,7 +117,7 @@
                                 <state key="normal" title="+"/>
                                 <connections>
                                     <action selector="addButton:" destination="74p-GW-guA" eventType="touchUpInside" id="BVw-6q-a0w"/>
-                                    <segue destination="KkU-Gm-rlb" kind="push" id="dDS-CW-Wxn"/>
+                                    <segue destination="KkU-Gm-rlb" kind="push" identifier="plusButton" id="dDS-CW-Wxn"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Gg-F1-BHv">
@@ -372,6 +372,6 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="JSp-K5-8oj"/>
-        <segue reference="RSC-md-lbf"/>
+        <segue reference="dDS-CW-Wxn"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -84,10 +84,14 @@ class AddingVC: UIViewController, UITextFieldDelegate, UIPopoverPresentationCont
         self.textField.resignFirstResponder()
         self.expenceNumberTextField.resignFirstResponder()
     }
-    
+    var dateSelectedBuffer:Date? = nil
     override func viewDidLoad() {
         super.viewDidLoad()
         //初始化delegate
+        if self.dateSelectedBuffer != nil{
+            self.selectedDate = self.dateSelectedBuffer!
+        }
+        self.updateDatePicker()
         self.textField.delegate = self
         self.expenceNumberTextField.delegate = self
         self.expenceNumberTextField.delegate = self
@@ -191,7 +195,6 @@ class AddingVC: UIViewController, UITextFieldDelegate, UIPopoverPresentationCont
         }
     }
     //花费数字，备注，类别
-    //类别暂时还没有做！
     var expenceNumber = Float(0)
     var detail = ""
     var category = "渡渡鸟"
@@ -216,18 +219,21 @@ class AddingVC: UIViewController, UITextFieldDelegate, UIPopoverPresentationCont
     //选择的日期
     var selectedDate:Date = Date(){
         didSet{
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyy-MM-dd HH:mm"
-            let stringTime = dateFormatter.string(from: self.selectedDate)
-            //如果是今天的话就显示“现在”
-            let dateToSearchString = dateFormatter.string(from: self.selectedDate)
-            let todayDateString = dateFormatter.string(from: Date())
-            if dateToSearchString == todayDateString{
-                self.datePickerOutlet.setTitle("现在", for: .normal)
-            }else{
-                self.datePickerOutlet.setTitle(stringTime, for: .normal)
-            }
-            
+            self.updateDatePicker()
+        }
+    }
+    //更新Datepicker
+    func updateDatePicker(){
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyy-MM-dd HH:mm"
+        let stringTime = dateFormatter.string(from: self.selectedDate)
+        //如果是今天的话就显示“现在”
+        let dateToSearchString = dateFormatter.string(from: self.selectedDate)
+        let todayDateString = dateFormatter.string(from: Date())
+        if dateToSearchString == todayDateString{
+            self.datePickerOutlet.setTitle("现在", for: .normal)
+        }else{
+            self.datePickerOutlet.setTitle(stringTime, for: .normal)
         }
     }
     
