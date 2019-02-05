@@ -19,16 +19,19 @@ class ExEntry: NSManagedObject {
         entry.dateTime = dateTime
         entry.category = category
         entry.uuid = uuid
-        //更新month和year的string
+        //更新month和year,day的string
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyy-MM-dd"
         let dateString = dateFormatter.string(from: dateTime)
         let monthString = dateString[dateString.index(dateString.startIndex, offsetBy: 5)..<dateString.index(dateString.startIndex, offsetBy: 7)]
         let yearString = dateString[dateString.index(dateString.startIndex, offsetBy: 0)..<dateString.index(dateString.startIndex, offsetBy: 4)]
+        let dayString = dateString[dateString.index(dateString.startIndex, offsetBy: 8)..<dateString.index(dateString.endIndex, offsetBy: 0)]
+        print(dayString)
         print(monthString)
         print(yearString)
         entry.month = String(monthString)
         entry.year = String(yearString)
+        entry.day = String(dayString)
         return entry
     }
 }

@@ -3,6 +3,7 @@
     <entity name="ExEntry" representedClassName=".ExEntry" syncable="YES" codeGenerationType="category">
         <attribute name="category" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="dateTime" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="day" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="detail" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="expence" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="month" optional="YES" attributeType="String" syncable="YES"/>
@@ -10,6 +11,6 @@
         <attribute name="year" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="ExEntry" positionX="-63" positionY="-18" width="128" height="150"/>
+        <element name="ExEntry" positionX="-63" positionY="-18" width="128" height="165"/>
     </elements>
 </model>
