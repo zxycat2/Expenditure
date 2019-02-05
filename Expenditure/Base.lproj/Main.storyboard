@@ -21,11 +21,12 @@
                     </tabBar>
                     <connections>
                         <segue destination="Nfd-38-Epq" kind="relationship" relationship="viewControllers" id="gjq-iU-txI"/>
+                        <segue destination="7Zl-xt-1e2" kind="relationship" relationship="viewControllers" id="zap-Ya-0fY"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SNh-c8-gyB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2458" y="-161"/>
+            <point key="canvasLocation" x="-2449" y="-194"/>
         </scene>
         <!--Item-->
         <scene sceneID="46F-uM-qoP">
@@ -256,7 +257,7 @@
             </objects>
             <point key="canvasLocation" x="192.80000000000001" y="-181.0344827586207"/>
         </scene>
-        <!--StatisticsVC-->
+        <!--Item-->
         <scene sceneID="yZr-GX-NkJ">
             <objects>
                 <viewController id="7Zl-xt-1e2" customClass="StatisticsVC" customModule="Expenditure" customModuleProvider="target" sceneMemberID="viewController">
@@ -264,30 +265,50 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CP9-eM-lYC" customClass="LineChartView" customModule="Charts">
+                                <rect key="frame" x="16" y="206" width="343" height="202"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P98-ho-wLL">
+                                <rect key="frame" x="137" y="446" width="126" height="42"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <state key="normal" title="2019年七月"/>
+                                <connections>
+                                    <action selector="timeButton:" destination="7Zl-xt-1e2" eventType="touchUpInside" id="vS9-1x-CLt"/>
+                                    <action selector="timeButtonOutlet:" destination="7Zl-xt-1e2" eventType="touchUpInside" id="pUc-iE-aHy"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fFf-H1-BKr">
+                                <rect key="frame" x="16" y="496" width="330" height="282"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="scY-gF-GnB">
-                                <rect key="frame" x="84" y="73" width="207" height="29"/>
+                                <rect key="frame" x="92" y="150" width="207" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
                                     <segment title="月"/>
                                     <segment title="年"/>
                                 </segments>
+                                <connections>
+                                    <action selector="monthYearSwitcher:" destination="7Zl-xt-1e2" eventType="valueChanged" id="UaF-Al-9Vw"/>
+                                </connections>
                             </segmentedControl>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CP9-eM-lYC" customClass="LineChartView" customModule="Charts">
-                                <rect key="frame" x="16" y="126" width="343" height="202"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="TQ4-eb-VYN"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="0R4-Db-6xX"/>
                     <connections>
                         <outlet property="lineChartView" destination="CP9-eM-lYC" id="Dqz-U6-T2E"/>
+                        <outlet property="pieChartVIew" destination="fFf-H1-BKr" id="8u7-y5-EKf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="spf-k3-sQc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1228" y="-181.0344827586207"/>
+            <point key="canvasLocation" x="-1606" y="-1029"/>
         </scene>
         <!--Date PickerVC-->
         <scene sceneID="kcp-IJ-NJg">
