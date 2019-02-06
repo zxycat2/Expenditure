@@ -64,6 +64,7 @@ class mainPageVC: UIViewController,NSFetchedResultsControllerDelegate,UITableVie
                     contex!.delete((cellToBeDeleted!![0]) as NSManagedObject)
                     print("deleted")
                 self.updateTable()
+                    try?contex?.save()
                 }
             
             }
@@ -193,7 +194,7 @@ class mainPageVC: UIViewController,NSFetchedResultsControllerDelegate,UITableVie
             let destinationAddingPage = AddingVC()
             destinationAddingPage.isModifyingExistingEntry = true
             destinationAddingPage.uuid = cell.uuid!
-            destinationAddingPage.selectedDate = self.dateToSearch!
+            destinationAddingPage.preSetSelectedDate = self.dateToSearch!
             performSegue(withIdentifier: "modifyExistingEntry", sender: sender)
         }
     }

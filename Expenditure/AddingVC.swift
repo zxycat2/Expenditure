@@ -68,12 +68,21 @@ class AddingVC: UIViewController, UITextFieldDelegate, UIPopoverPresentationCont
     }
     @IBAction func saveButton(_ sender: UIBarButtonItem) {
         self.allSortsOfUpdating()
+        self.container?.viewContext.perform{
+            let contex = self.container?.viewContext
+            try?contex?.save()
+        }
+            
     }
     
     func allSortsOfUpdating(){
         self.updateExpenceAndDetail()
         self.updateDatebase()
-        self.navigationController?.popToRootViewController(animated: true);
+        self.navigationController?.popToRootViewController(animated: true)
+        self.container?.viewContext.perform{
+            let contex = self.container?.viewContext
+            try?contex?.save()
+        }
     }
     
     var isModifyingExistingEntry = false
@@ -88,6 +97,9 @@ class AddingVC: UIViewController, UITextFieldDelegate, UIPopoverPresentationCont
     override func viewDidLoad() {
         super.viewDidLoad()
         //初始化delegate
+        if self.preSetSelectedDate != nil{
+            self.selectedDate = preSetSelectedDate!
+        }
         if self.dateSelectedBuffer != nil{
             self.selectedDate = self.dateSelectedBuffer!
         }
@@ -216,6 +228,7 @@ class AddingVC: UIViewController, UITextFieldDelegate, UIPopoverPresentationCont
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
         return .none
     }
+    var preSetSelectedDate:Date? = nil
     //选择的日期
     var selectedDate:Date = Date(){
         didSet{

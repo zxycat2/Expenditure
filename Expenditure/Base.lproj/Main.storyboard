@@ -265,7 +265,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CP9-eM-lYC" customClass="LineChartView" customModule="Charts">
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CP9-eM-lYC" customClass="BarChartView" customModule="Charts">
                                 <rect key="frame" x="16" y="206" width="343" height="202"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -280,7 +280,7 @@
                                     <action selector="timeButtonOutlet:" destination="7Zl-xt-1e2" eventType="touchUpInside" id="pUc-iE-aHy"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fFf-H1-BKr">
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fFf-H1-BKr" customClass="PieChartView" customModule="Charts">
                                 <rect key="frame" x="16" y="496" width="330" height="282"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -302,8 +302,8 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Item" id="0R4-Db-6xX"/>
                     <connections>
-                        <outlet property="lineChartView" destination="CP9-eM-lYC" id="Dqz-U6-T2E"/>
-                        <outlet property="pieChartVIew" destination="fFf-H1-BKr" id="8u7-y5-EKf"/>
+                        <outlet property="myBarChartView" destination="CP9-eM-lYC" id="377-tw-QqH"/>
+                        <outlet property="myPieChartView" destination="fFf-H1-BKr" id="tCr-Ea-Vpb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="spf-k3-sQc" userLabel="First Responder" sceneMemberID="firstResponder"/>
