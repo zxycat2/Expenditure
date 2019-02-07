@@ -42,7 +42,6 @@ class StatisticsVC: UIViewController, ChartViewDelegate{
             request.sortDescriptors = [NSSortDescriptor(key: "dateTime", ascending: true)]
             request.predicate = NSPredicate(format: "year == %@ && month == %@", self.nowYearString! as CVarArg, self.nowMonthString! as CVarArg)
             let result = try?context.fetch(request)
-            print(result?.count)
             if result?.count ?? 0 > 0{
                 //--------------------------------支出折线图--------
                 //生成一个一个月的字典，默认每天都是0
@@ -98,6 +97,15 @@ class StatisticsVC: UIViewController, ChartViewDelegate{
                 //柱形数据
                 self.myBarChartView.data = barChartData
                 //--------------------------------类别 饼图
+                self.setUpPieChart()
+                //做作为数据源的字典
+                var pieChartDic:[String:Double] = [:]
+                for eachEntry in result!{
+                    if pieChartDic.keys.contains(eachEntry.category!){
+                        
+                    }
+                    
+                }
                 
             }else{
                 //没有数据可显示
@@ -183,6 +191,57 @@ class StatisticsVC: UIViewController, ChartViewDelegate{
 //        self.myBarChartView.chartDescription?.text = "每月支出"
         //设置动画效果，可以设置X轴和Y轴的动画效果
         self.myBarChartView.animate(yAxisDuration: 2)
+        //单击弹出ballon窗口显示数据
+        //color:标记背景颜色， insets:text相对整个markerView的insets
+        let markerView = BalloonMarker.init(color: UIColor.black.withAlphaComponent(0.5),
+                                            font: UIFont.systemFont(ofSize: 30), textColor: UIColor.white, insets: UIEdgeInsets.zero)
+        //最小的size
+        markerView.minimumSize = CGSize.init(width: 75, height: 45)
+        markerView.chartView = self.myBarChartView
+        self.myBarChartView.marker = markerView
+        //关于highLight
+        self.myBarChartView.highlightPerTapEnabled = true
+    }
+    //设置饼状图
+    func setUpPieChart(){
+        
+        //基本样式
+        self.myPieChartView.setExtraOffsets(left: 20, top: 20, right: 20, bottom: 20)//设置距离四周的空隙
+        self.myPieChartView.usePercentValuesEnabled = true;//是否根据所提供的数据, 将显示数据转换为百分比格式
+        self.myPieChartView.dragDecelerationEnabled = false;//拖拽饼状图后是否有惯性效果
+//        self.myPieChartView.drawSliceTextEnabled = true;//是否显示区块文本
+        //空心饼状图样式
+        self.myPieChartView.drawHoleEnabled = true;//饼状图是否是空心
+        self.myPieChartView.holeRadiusPercent = 0.5;//空心半径占比
+        self.myPieChartView.holeColor = UIColor.clear;//空心颜色
+        self.myPieChartView.transparentCircleRadiusPercent = 0.52;//半透明空心半径占比
+        self.myPieChartView.transparentCircleColor = #colorLiteral(red: 0.3647058904, green: 0.06666667014, blue: 0.9686274529, alpha: 1);//半透明空心的颜色
+        //实心饼状图样式
+        //    self.pieChartView.drawHoleEnabled = NO;
+        //饼状图中间描述
+        if (self.myPieChartView.isDrawHoleEnabled == true) {
+            self.myPieChartView.drawCenterTextEnabled = true;//是否显示中间文字
+            //普通文本
+            //        self.pieChartView.centerText = @"饼状图";//中间文字
+            //富文本
+            let centerText:NSMutableAttributedString = NSMutableAttributedString(string: "消费类别", attributes: [NSAttributedString.Key.font:UIFont.boldSystemFont(ofSize:16), .foregroundColor:#colorLiteral(red: 0.1411764771, green: 0.3960784376, blue: 0.5647059083, alpha: 1)])
+            self.myPieChartView.centerAttributedText = centerText;
+        }
+        //饼状图描述
+        self.myPieChartView.chartDescription?.text = "饼状图示例";
+        self.myPieChartView.chartDescription?.font = UIFont.systemFont(ofSize:16)
+        self.myPieChartView.chartDescription?.textColor = #colorLiteral(red: 0.8549019694, green: 0.250980407, blue: 0.4784313738, alpha: 1)
+        //饼状图图例
+        self.myPieChartView.legend.maxSizePercent = 1;//图例在饼状图中的大小占比, 这会影响图例的宽高
+        self.myPieChartView.legend.formToTextSpace = 5;//文本间隔
+        self.myPieChartView.legend.font = UIFont.systemFont(ofSize:10);//字体大小
+        self.myPieChartView.legend.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1);//字体颜色
+        self.myPieChartView.legend.horizontalAlignment = .center;
+        self.myPieChartView.legend.verticalAlignment = .bottom;//图例在饼状图中的位置
+        self.myPieChartView.legend.form = .circle;//图示样式: 方形、线条、圆形
+        self.myPieChartView.legend.formSize = 12;//图示大小
+        //设置动画效果
+        self.myPieChartView.animate(yAxisDuration: 2)
     }
     var nowDateTime:Date? = nil
     var nowMonthString:String? = nil
