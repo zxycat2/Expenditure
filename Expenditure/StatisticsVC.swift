@@ -130,7 +130,7 @@ class StatisticsVC: UIViewController, ChartViewDelegate{
                 dataSet.valueLineColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1) //折线颜色
                 
                 let data = PieChartData.init(dataSets: [dataSet]);
-//                data.setValueFormatter(IAxisValueFormatter.init());//格式化值（添加个%）
+                data.setValueFormatter(VDChartAxisValueFormatter.init());//格式化值（添加个%）
                 data.setValueFont(UIFont.systemFont(ofSize: 10.0));
                 data.setValueTextColor(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1));
                 self.myPieChartView.data = data;

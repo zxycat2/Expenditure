@@ -21,7 +21,7 @@ class AddingVC: UIViewController, UITextFieldDelegate, UIPopoverPresentationCont
             self.myCollectionView.delegate = self
         }
     }
-    var myCollectionViewModel = ["coffee", "electronicDevices", "game", "hotel", "restaurant", "shopping", "sim", "traffic", "travel"]
+    var myCollectionViewModel = ["coffee", "electronic", "game", "hotel", "restaurant", "shopping", "sim", "traffic", "travel"]
     //Number of cell
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.myCollectionViewModel.count
