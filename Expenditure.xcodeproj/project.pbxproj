@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		BB32154C22036E2600A09EC5 /* MyCustomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB32154B22036E2600A09EC5 /* MyCustomCollectionViewCell.swift */; };
 		BB36EA53220BBA5900219C80 /* VDChartAxisValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB36EA52220BBA5900219C80 /* VDChartAxisValueFormatter.swift */; };
+		BB63C9DA220F4A82009B1CCC /* customPickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB63C9D9220F4A82009B1CCC /* customPickerVC.swift */; };
 		BB877E6D21F7A2EC00BFE382 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB877E6C21F7A2EC00BFE382 /* AppDelegate.swift */; };
 		BB877E7221F7A2EC00BFE382 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB877E7021F7A2EC00BFE382 /* Main.storyboard */; };
 		BB877E7521F7A2EC00BFE382 /* Expenditure.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BB877E7321F7A2EC00BFE382 /* Expenditure.xcdatamodeld */; };
@@ -69,6 +70,7 @@
 /* Begin PBXFileReference section */
 		BB32154B22036E2600A09EC5 /* MyCustomCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCustomCollectionViewCell.swift; sourceTree = "<group>"; };
 		BB36EA52220BBA5900219C80 /* VDChartAxisValueFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VDChartAxisValueFormatter.swift; sourceTree = "<group>"; };
+		BB63C9D9220F4A82009B1CCC /* customPickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customPickerVC.swift; sourceTree = "<group>"; };
 		BB877E6921F7A2EC00BFE382 /* Expenditure.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Expenditure.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB877E6C21F7A2EC00BFE382 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BB877E7121F7A2EC00BFE382 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -134,6 +136,7 @@
 				BB877E6C21F7A2EC00BFE382 /* AppDelegate.swift */,
 				BB877E8921F7D7A000BFE382 /* ExEntry.swift */,
 				BB877E7021F7A2EC00BFE382 /* Main.storyboard */,
+				BB63C9D9220F4A82009B1CCC /* customPickerVC.swift */,
 				BBA82D8022079A11001C86A6 /* StatisticsVC.swift */,
 				BB36EA52220BBA5900219C80 /* VDChartAxisValueFormatter.swift */,
 				BBA82D82220B9C0C001C86A6 /* BalloonMarker.swift */,
@@ -267,6 +270,7 @@
 				BB877E8A21F7D7A000BFE382 /* ExEntry.swift in Sources */,
 				BBD51FA321FE8B960093C945 /* FetchedResultsTableViewController.swift in Sources */,
 				BBD51FA521FE8BAA0093C945 /* UITableViewDataSource+NSFetchedResultsController.swift in Sources */,
+				BB63C9DA220F4A82009B1CCC /* customPickerVC.swift in Sources */,
 				BB877E7521F7A2EC00BFE382 /* Expenditure.xcdatamodeld in Sources */,
 				BBA82D83220B9C0C001C86A6 /* BalloonMarker.swift in Sources */,
 				BB877E8E21FA860900BFE382 /* DatePickerVC.swift in Sources */,

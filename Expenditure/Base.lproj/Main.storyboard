@@ -278,6 +278,9 @@
                                 <connections>
                                     <action selector="timeButton:" destination="7Zl-xt-1e2" eventType="touchUpInside" id="vS9-1x-CLt"/>
                                     <action selector="timeButtonOutlet:" destination="7Zl-xt-1e2" eventType="touchUpInside" id="pUc-iE-aHy"/>
+                                    <segue destination="RdG-tF-HII" kind="popoverPresentation" identifier="customPicker" popoverAnchorView="P98-ho-wLL" id="7fI-f1-GmS">
+                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                    </segue>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fFf-H1-BKr" customClass="PieChartView" customModule="Charts">
@@ -309,6 +312,56 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="spf-k3-sQc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1606" y="-1029"/>
+        </scene>
+        <!--Custom PickerVC-->
+        <scene sceneID="u34-go-ze5">
+            <objects>
+                <viewController id="RdG-tF-HII" customClass="customPickerVC" customModule="Expenditure" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="9ee-cr-3Ah">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="82k-Do-u5x">
+                                <rect key="frame" x="70" y="327.66666666666669" width="235" height="157"/>
+                                <subviews>
+                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AML-MT-IvZ">
+                                        <rect key="frame" x="0.0" y="0.0" width="235" height="110"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="235" id="LqC-si-qY3"/>
+                                            <constraint firstAttribute="height" constant="110" id="e4T-9G-Rfv"/>
+                                        </constraints>
+                                    </pickerView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KZA-Uy-3aG">
+                                        <rect key="frame" x="0.0" y="113" width="235" height="44"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="235" id="eCS-sj-kCy"/>
+                                            <constraint firstAttribute="height" constant="44" id="z19-TY-8Wg"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                        <state key="normal" title="确定"/>
+                                        <connections>
+                                            <action selector="confirmButton:" destination="RdG-tF-HII" eventType="touchUpInside" id="NSm-68-dYw"/>
+                                            <action selector="confirmButton:" destination="s4J-wW-mRG" eventType="touchUpInside" id="mk8-Ei-DZI"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="82k-Do-u5x" firstAttribute="centerX" secondItem="9ee-cr-3Ah" secondAttribute="centerX" id="Clg-Zb-oeE"/>
+                            <constraint firstItem="82k-Do-u5x" firstAttribute="centerY" secondItem="9ee-cr-3Ah" secondAttribute="centerY" id="tFZ-ig-Ox4"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="cZd-Sg-2yF"/>
+                    </view>
+                    <connections>
+                        <outlet property="pickerOutlet" destination="AML-MT-IvZ" id="AXD-NB-vTd"/>
+                        <outlet property="stackView" destination="82k-Do-u5x" id="Adc-u1-frz"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4XG-10-K9L" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-402.39999999999998" y="-1165.2709359605913"/>
         </scene>
         <!--Date PickerVC-->
         <scene sceneID="kcp-IJ-NJg">
@@ -372,6 +425,6 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="JSp-K5-8oj"/>
-        <segue reference="dDS-CW-Wxn"/>
+        <segue reference="RSC-md-lbf"/>
     </inferredMetricsTieBreakers>
 </document>

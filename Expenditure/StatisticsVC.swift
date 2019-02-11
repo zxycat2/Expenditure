@@ -10,9 +10,11 @@ import UIKit
 import Charts
 import CoreData
 
-class StatisticsVC: UIViewController, ChartViewDelegate{
-    
-    
+class StatisticsVC: UIViewController, ChartViewDelegate, UIPopoverPresentationControllerDelegate{
+    //popover适配
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -20,7 +22,7 @@ class StatisticsVC: UIViewController, ChartViewDelegate{
     }
     override func viewWillAppear(_ animated: Bool) {
         //初始化
-        self.nowDateTime = Date()
+        self.selectedDateTime = Date()
         self.dateFormatterDateTimeVer.dateFormat = "yyy-MM-dd HH:mm"
         self.updateLocalDateTime()
         self.generateYearCharts()
@@ -28,7 +30,7 @@ class StatisticsVC: UIViewController, ChartViewDelegate{
     }
 
     func updateLocalDateTime(){
-        let dateString = self.dateFormatterDateTimeVer.string(from: self.nowDateTime!)
+        let dateString = self.dateFormatterDateTimeVer.string(from: self.selectedDateTime!)
         self.nowMonthString = String(dateString[dateString.index(dateString.startIndex, offsetBy: 5)..<dateString.index(dateString.startIndex, offsetBy: 7)])
         self.nowYearString = String(dateString[dateString.index(dateString.startIndex, offsetBy: 0)..<dateString.index(dateString.startIndex, offsetBy: 4)])
     }
@@ -198,19 +200,7 @@ class StatisticsVC: UIViewController, ChartViewDelegate{
         //                leftAxis.valueFormatter.positiveSuffix = @" $";//数字后缀单位
         leftAxis.labelPosition = YAxis.LabelPosition.outsideChart;//label位置
         leftAxis.labelTextColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1);//文字颜色
-        //网格线样式
-        //                leftAxis.gridLineDashLengths = @[@3.0f, @3.0f];//设置虚线样式的网格线
-        //                leftAxis.gridColor = [UIColor colorWithRed:200/255.0f green:200/255.0f blue:200/255.0f alpha:1];//网格线颜色
-        //                leftAxis.gridAntialiasEnabled = YES;//开启抗锯齿
         leftAxis.drawGridLinesEnabled = false
-        //添加限制线
-        //                ChartLimitLine *limitLine = [[ChartLimitLine alloc] initWithLimit:80 label:@"限制线"];
-        //                limitLine.lineWidth = 2;
-        //                limitLine.lineColor = [UIColor greenColor];
-        //                limitLine.lineDashLengths = @[@5.0f, @5.0f];//虚线样式
-        //                limitLine.labelPosition = ChartLimitLabelPositionRightTop;//位置
-        //                [leftAxis addLimitLine:limitLine];//添加到Y轴上
-        //                leftAxis.drawLimitLinesBehindDataEnabled = YES;//设置限制线绘制在柱形图的后面
         //图例说明样式
         self.myBarChartView.legend.enabled = false
         self.myBarChartView.legend.drawInside = false
@@ -272,11 +262,10 @@ class StatisticsVC: UIViewController, ChartViewDelegate{
         //设置动画效果
         self.myPieChartView.animate(yAxisDuration: 2)
     }
-    var nowDateTime:Date? = nil
+    var selectedDateTime:Date? = nil
     var nowMonthString:String? = nil
     var nowYearString:String? = nil
     let dateFormatterDateTimeVer = DateFormatter()
-    
     
     
     
@@ -285,20 +274,35 @@ class StatisticsVC: UIViewController, ChartViewDelegate{
     @IBOutlet weak var myPieChartView: PieChartView!
     
     @IBAction func timeButton(_ sender: UIButton) {
+        
     }
     
     @IBAction func timeButtonOutlet(_ sender: Any) {
     }
     @IBAction func monthYearSwitcher(_ sender: UISegmentedControl) {
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    //准备segue到customPicker
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "customPicker"{
+            if let destination = segue.destination as? customPickerVC{
+                let myPopoverPresentaionController = destination.popoverPresentationController
+                myPopoverPresentaionController?.delegate = self
+                //准备picker
+                destination.selectedMonth =  self.nowMonthString
+                destination.selectedYear = self.nowYearString
+                destination.yearArray = []
+                for index in 1...5{
+                    destination.yearArray.append(Int(self.nowYearString!)!+index)
+                    destination.yearArray.append(Int(self.nowYearString!)!-index)
+                }
+                destination.yearArray.sort()
+                //
+                for stuff in destination.yearArray{
+                    print(stuff)
+                }
+            }
+            
+        }
     }
-    */
-
+ 
 }
