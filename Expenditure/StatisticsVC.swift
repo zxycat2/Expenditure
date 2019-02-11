@@ -294,8 +294,8 @@ class StatisticsVC: UIViewController, ChartViewDelegate, UIPopoverPresentationCo
                 let myPopoverPresentaionController = destination.popoverPresentationController
                 myPopoverPresentaionController?.delegate = self
                 //准备picker
-                destination.selectedMonth =  self.nowMonthString
-                destination.selectedYear = self.nowYearString
+                destination.monthString =  self.nowMonthString
+                destination.yearString = self.nowYearString
                 destination.yearArray = []
                 for index in 1...5{
                     destination.yearArray.append(Int(self.nowYearString!)!+index)

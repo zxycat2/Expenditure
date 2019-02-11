@@ -30,19 +30,23 @@ class customPickerVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     var mode:String? = nil//yearOnly or monthAndYear
     
     
-    var selectedMonth:String? = nil
-    var selectedYear:String? = nil
 
     override func viewDidLoad() {
         super.viewDidLoad()
         //初始化
         self.pickerOutlet.delegate = self
         //预选择
-        if self.monthString != nil{
-            
-
+        
+        if self.mode == "monthYear"{
+            let monthIndex = self.monthArray.index(for: Int(self.monthString!)!)
+            self.pickerOutlet.selectRow(monthIndex!, inComponent: 0, animated: true)
+            let yearIndex = self.yearArray.index(for: Int(self.yearString!)!)
+            self.pickerOutlet.selectRow(yearIndex!, inComponent: 1, animated: true)
+        }else{
+            let yearIndex = self.yearArray.index(for: Int(self.yearString!)!)
+            self.pickerOutlet.selectRow(yearIndex!, inComponent: 0, animated: true)
         }
-        self.pickerOutlet.selectRow(<#T##row: Int##Int#>, inComponent: <#T##Int#>, animated: <#T##Bool#>)
+        
 
         // Do any additional setup after loading the view.
     }
@@ -104,6 +108,7 @@ class customPickerVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
                 statisticVC.nowYearString = self.yearString
             }
         }
+        self.dismiss(animated: true, completion: nil)
     }
     @IBOutlet weak var stackView: UIStackView!
     override func viewDidLayoutSubviews() {
