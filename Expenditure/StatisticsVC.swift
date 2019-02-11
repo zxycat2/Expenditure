@@ -20,11 +20,15 @@ class StatisticsVC: UIViewController, ChartViewDelegate, UIPopoverPresentationCo
         
         
     }
+    var firstTimeLoad = true
     override func viewWillAppear(_ animated: Bool) {
         //初始化
         self.selectedDateTime = Date()
         self.dateFormatterDateTimeVer.dateFormat = "yyy-MM-dd HH:mm"
-        self.updateLocalDateTime()
+        if self.firstTimeLoad{
+             self.updateLocalDateTime()
+            self.firstTimeLoad = false
+        }
         self.generateYearCharts()
         self.generateMonthlyCharts()
     }
@@ -281,6 +285,8 @@ class StatisticsVC: UIViewController, ChartViewDelegate, UIPopoverPresentationCo
     }
     @IBAction func monthYearSwitcher(_ sender: UISegmentedControl) {
     }
+    @IBOutlet weak var monthYearSwictchedOutlet: UISegmentedControl!
+    
     //准备segue到customPicker
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "customPicker"{
@@ -295,10 +301,12 @@ class StatisticsVC: UIViewController, ChartViewDelegate, UIPopoverPresentationCo
                     destination.yearArray.append(Int(self.nowYearString!)!+index)
                     destination.yearArray.append(Int(self.nowYearString!)!-index)
                 }
+                destination.yearArray.append(Int(self.nowYearString!)!)
                 destination.yearArray.sort()
-                //
-                for stuff in destination.yearArray{
-                    print(stuff)
+                if self.monthYearSwictchedOutlet.selectedSegmentIndex == 0{
+                    destination.mode = "monthYear"
+                }else{
+                    destination.mode = "yearOnly"
                 }
             }
             

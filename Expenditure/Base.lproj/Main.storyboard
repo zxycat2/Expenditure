@@ -305,6 +305,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Item" id="0R4-Db-6xX"/>
                     <connections>
+                        <outlet property="monthYearSwictchedOutlet" destination="scY-gF-GnB" id="LCz-a2-4ap"/>
                         <outlet property="myBarChartView" destination="CP9-eM-lYC" id="377-tw-QqH"/>
                         <outlet property="myPieChartView" destination="fFf-H1-BKr" id="tCr-Ea-Vpb"/>
                     </connections>

@@ -8,6 +8,19 @@
 
 import UIKit
 
+extension Array where Element: Equatable{
+    func index(for object: Element) -> Int? {
+        var index = 0
+        for element in self{
+            if object == element{
+                return index
+            }
+            index += 1
+        }
+        return nil
+    }
+}
+
 class customPickerVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
     let marginSize = CGFloat(bitPattern: 0)
@@ -16,6 +29,7 @@ class customPickerVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     var yearString:String? = nil
     var mode:String? = nil//yearOnly or monthAndYear
     
+    
     var selectedMonth:String? = nil
     var selectedYear:String? = nil
 
@@ -23,6 +37,12 @@ class customPickerVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         super.viewDidLoad()
         //初始化
         self.pickerOutlet.delegate = self
+        //预选择
+        if self.monthString != nil{
+            
+
+        }
+        self.pickerOutlet.selectRow(<#T##row: Int##Int#>, inComponent: <#T##Int#>, animated: <#T##Bool#>)
 
         // Do any additional setup after loading the view.
     }
@@ -38,19 +58,28 @@ class customPickerVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if component == 0{
-            return self.monthArray.count
-        }else{
+        if self.mode == "yearOnly"{
             return self.yearArray.count
+        }else{
+            if component == 0{
+                return self.monthArray.count
+            }else{
+                return self.yearArray.count
+            }
         }
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if component == 0{
-            return String(self.monthArray[row])
+        if self.mode == "yearOnly"{
+            return String(self.yearArray[row]) + "年"
         }else{
-            return String(self.yearArray[row])
+            if component == 0{
+                return String(self.monthArray[row]) + "月"
+            }else{
+                return String(self.yearArray[row]) + "年"
+            }
         }
+        
     }
     
     @IBOutlet weak var pickerOutlet: UIPickerView!
