@@ -29,8 +29,15 @@ class StatisticsVC: UIViewController, ChartViewDelegate, UIPopoverPresentationCo
              self.updateLocalDateTime()
             self.firstTimeLoad = false
         }
-//        self.generateYearCharts()
-        self.generateMonthlyCharts()
+        self.barChartStyle()
+        self.pieChartStyle()
+        self.getDataForMonthCharts()
+        if (self.myBarChartDataEntries != nil){
+            self.generateBarChartWithData(dataEntries: self.myBarChartDataEntries!)
+        }
+        if (self.myPieChartDataEntries != nil){
+            self.generatePieChartWithData(dataEntries: self.myPieChartDataEntries!)
+        }
     }
 
     func updateLocalDateTime(){
@@ -40,8 +47,13 @@ class StatisticsVC: UIViewController, ChartViewDelegate, UIPopoverPresentationCo
     }
     
     var container = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer
+    
+    
+    
+    var myBarChartDataEntries:[BarChartDataEntry]? = nil
+    var myPieChartDataEntries:[PieChartDataEntry]? = nil
     //柱状图样式
-    func barChartStyle(dataEntries:[BarChartDataEntry]) {
+    func generateBarChartWithData(dataEntries:[BarChartDataEntry]) {
         let barChartDataSet = BarChartDataSet(values: dataEntries, label: "支出")
         //样式设置
         //显示的数值的颜色，可以多个颜色
@@ -62,29 +74,14 @@ class StatisticsVC: UIViewController, ChartViewDelegate, UIPopoverPresentationCo
         
         let barChartData = BarChartData(dataSet: barChartDataSet)
         
-        //柱形数据
+        //更新chart
         self.myBarChartView.data = barChartData
     }
     //做一个完整的类别饼状图
-    func generatePieChart(result:[ExEntry]?) {
-        //做作为数据源的字典
-        var pieChartDic:[String:Double] = [:]
-        for eachEntry in result!{
-            if pieChartDic.keys.contains(eachEntry.category!){
-                pieChartDic[eachEntry.category!] = pieChartDic[eachEntry.category!]! + Double(eachEntry.expence)
-                
-            }else{
-                pieChartDic[eachEntry.category!] = Double(eachEntry.expence)
-            }
-        }
-        //饼状图样式
-        var allPieChartEntries = [PieChartDataEntry]();
-        for key in pieChartDic.keys {
-            let entry = PieChartDataEntry.init(value: Double(pieChartDic[key]!), label: key);
-            allPieChartEntries.append(entry);
-        }
+    func generatePieChartWithData(dataEntries:[PieChartDataEntry]) {
         
-        let dataSet = PieChartDataSet.init(values: allPieChartEntries, label: "");
+        
+        let dataSet = PieChartDataSet.init(values: dataEntries, label: "");
         dataSet.colors = [#colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1), #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1), #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1), #colorLiteral(red: 0.2745098174, green: 0.4862745106, blue: 0.1411764771, alpha: 1), #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1), #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1), #colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1), #colorLiteral(red: 0.9098039269, green: 0.4784313738, blue: 0.6431372762, alpha: 1), #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1), #colorLiteral(red: 0.05882352963, green: 0.180392161, blue: 0.2470588237, alpha: 1), #colorLiteral(red: 0.6666666865, green: 0.6666666865, blue: 0.6666666865, alpha: 1)]
         //设置名称和数据的位置 都在内就没有折线了哦
         dataSet.xValuePosition = .insideSlice;
@@ -102,10 +99,33 @@ class StatisticsVC: UIViewController, ChartViewDelegate, UIPopoverPresentationCo
         data.setValueFormatter(VDChartAxisValueFormatter.init());//格式化值（添加个%）
         data.setValueFont(UIFont.systemFont(ofSize: 10.0));
         data.setValueTextColor(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1));
+        
         self.myPieChartView.data = data;
     }
+    //query饼状图需要的数据
+    func getDataForPieChart(result:[ExEntry]?){
+        //--------------------------饼状图
+        //做作为数据源的字典
+        var pieChartDic:[String:Double] = [:]
+        for eachEntry in result!{
+            if pieChartDic.keys.contains(eachEntry.category!){
+                pieChartDic[eachEntry.category!] = pieChartDic[eachEntry.category!]! + Double(eachEntry.expence)
+                
+            }else{
+                pieChartDic[eachEntry.category!] = Double(eachEntry.expence)
+            }
+        }
+        //饼状图样式
+        var pieChartDataEntries = [PieChartDataEntry]();
+        for key in pieChartDic.keys {
+            let entry = PieChartDataEntry.init(value: Double(pieChartDic[key]!), label: key);
+            pieChartDataEntries.append(entry);
+        }
+        self.myPieChartDataEntries = pieChartDataEntries
+    }
+    
     //生成月图
-    func generateMonthlyCharts(){
+    func getDataForMonthCharts(){
         //query数据
         if let context = self.container?.viewContext{
             let request:NSFetchRequest<ExEntry> = ExEntry.fetchRequest()
@@ -135,37 +155,29 @@ class StatisticsVC: UIViewController, ChartViewDelegate, UIPopoverPresentationCo
                 for entry in result!{
                     monthDic[Int(entry.day!)!] = Float(monthDic[Int(entry.day!)!]!) + entry.expence
                 }
-                self.setUpTheBarChart()
+                //------------------------
+                
                 //柱状图数据
-                var dataEntries: [BarChartDataEntry] = []
+                var barChartDataEntries: [BarChartDataEntry] = []
                 for day in 1 ... monthDayList[monthInt!-1] {
                     //每一个dataEntry表示一个柱形数据，如 (0,1000) 表示第一个柱形的值为1000
                     let dataEntry = BarChartDataEntry.init(x: Double(day), y: Double(monthDic[day]!))
-                    dataEntries.append(dataEntry)
+                    barChartDataEntries.append(dataEntry)
                 }
-                self.barChartStyle(dataEntries: dataEntries)
-                self.setUpPieChart()
-                //--------------------------饼状图
-                //做作为数据源的字典
-                var pieChartDic:[String:Double] = [:]
-                for eachEntry in result!{
-                    if pieChartDic.keys.contains(eachEntry.category!){
-                        pieChartDic[eachEntry.category!] = pieChartDic[eachEntry.category!]! + Double(eachEntry.expence)
-                        
-                    }else{
-                        pieChartDic[eachEntry.category!] = Double(eachEntry.expence)
-                    }
-                }
-                self.generatePieChart(result: result)
+                self.myBarChartDataEntries = barChartDataEntries
+                //饼状图
+                self.getDataForPieChart(result: result)
+                //test
+                self.generateBarChartWithData(dataEntries: self.myBarChartDataEntries!)
+                self.generatePieChartWithData(dataEntries: self.myPieChartDataEntries!)
             }else{
                 //没有数据可显示
                 print("no data")
             }
         }
-            
     }
     //生成年图
-    func generateYearCharts(){
+    func getDataForYearCharts(){
         if let context = self.container?.viewContext{
             let request:NSFetchRequest<ExEntry> = ExEntry.fetchRequest()
             request.sortDescriptors = [NSSortDescriptor(key: "dateTime", ascending: true)]
@@ -189,18 +201,19 @@ class StatisticsVC: UIViewController, ChartViewDelegate, UIPopoverPresentationCo
                     let dataEntry = BarChartDataEntry.init(x: Double(day), y: Double(yearDic[day]!))
                     dataEntries.append(dataEntry)
                 }
-                //柱状图样式
-                self.barChartStyle(dataEntries: dataEntries)
-                self.setUpPieChart()
+                self.myBarChartDataEntries = dataEntries
                 //饼状图
-                self.generatePieChart(result: result)
+                self.getDataForPieChart(result: result)
+                //test
+                self.generateBarChartWithData(dataEntries: self.myBarChartDataEntries!)
+                self.generatePieChartWithData(dataEntries: self.myPieChartDataEntries!)
             }else{
                 //如果没数据，无 能 为 力
             }
         }
     }
     //设置柱状图
-    func setUpTheBarChart(){
+    func barChartStyle(){
         self.myBarChartView.delegate = self;//设置代理
         //基本样式
         self.myBarChartView.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
@@ -259,8 +272,8 @@ class StatisticsVC: UIViewController, ChartViewDelegate, UIPopoverPresentationCo
         //关于highLight
         self.myBarChartView.highlightPerTapEnabled = true
     }
-    //设置饼状图
-    func setUpPieChart(){
+    //设置饼状图样式
+    func pieChartStyle(){
         
         //基本样式
         self.myPieChartView.setExtraOffsets(left: 20, top: 20, right: 20, bottom: 20)//设置距离四周的空隙
