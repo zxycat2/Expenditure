@@ -17,8 +17,6 @@ class StatisticsVC: UIViewController, ChartViewDelegate, UIPopoverPresentationCo
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
     }
     var firstTimeLoad = true
     override func viewWillAppear(_ animated: Bool) {
@@ -27,26 +25,24 @@ class StatisticsVC: UIViewController, ChartViewDelegate, UIPopoverPresentationCo
         self.dateFormatterDateTimeVer.dateFormat = "yyy-MM-dd HH:mm"
         if self.firstTimeLoad{
              self.updateLocalDateTime()
+            //初始化switcher
+            self.monthYearSwictchedOutlet.addTarget(self, action: #selector(updatePickerButtonTextAndChart), for: .valueChanged)
             self.firstTimeLoad = false
         }
-        self.updatePickerButtonTextAndChart()
-        
         self.barChartStyle()
         self.pieChartStyle()
-        self.getDataForMonthCharts()
-        if (self.myBarChartDataEntries != nil){
-            self.generateBarChartWithData(dataEntries: self.myBarChartDataEntries!)
-        }
-        if (self.myPieChartDataEntries != nil){
-            self.generatePieChartWithData(dataEntries: self.myPieChartDataEntries!)
-        }
-        //初始化switcher
-        self.monthYearSwictchedOutlet.addTarget(self, action: #selector(updatePickerButtonTextAndChart), for: .valueChanged)
+        self.updatePickerButtonTextAndChart()
+//        self.getDataForMonthCharts()
+//        if (self.myBarChartDataEntries != nil){
+//            self.generateBarChartWithData(dataEntries: self.myBarChartDataEntries!)
+//        }
+//        if (self.myPieChartDataEntries != nil){
+//            self.generatePieChartWithData(dataEntries: self.myPieChartDataEntries!)
+//        }
     }
     //update 选择日期按钮的text 和图表数据 并且重绘图表
     @objc func updatePickerButtonTextAndChart(){
         if self.monthYearSwictchedOutlet.selectedSegmentIndex == 0{
-            print(self.nowMonthString)
             self.timeButtonOutlet.setTitle(self.nowYearString!+"年"+self.nowMonthString!+"月", for: .normal)
             self.getDataForMonthCharts()
             self.generatePieChartWithData(dataEntries: self.myPieChartDataEntries!)
@@ -188,9 +184,10 @@ class StatisticsVC: UIViewController, ChartViewDelegate, UIPopoverPresentationCo
                 self.myBarChartDataEntries = barChartDataEntries
                 //饼状图
                 self.getDataForPieChart(result: result)
+                print("Month data gathered")
             }else{
                 //没有数据可显示
-                print("no data")
+                print("no month data")
                 self.myPieChartDataEntries = [PieChartDataEntry]()
                 self.myBarChartDataEntries = [BarChartDataEntry]()
             }
@@ -224,10 +221,12 @@ class StatisticsVC: UIViewController, ChartViewDelegate, UIPopoverPresentationCo
                 self.myBarChartDataEntries = dataEntries
                 //饼状图
                 self.getDataForPieChart(result: result)
+                print("Year data gathered")
             }else{
                 //如果没数据，无 能 为 力
                 self.myPieChartDataEntries = [PieChartDataEntry]()
                 self.myBarChartDataEntries = [BarChartDataEntry]()
+                print("No year data")
             }
         }
     }

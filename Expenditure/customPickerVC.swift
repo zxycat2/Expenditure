@@ -102,7 +102,12 @@ class customPickerVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         self.updateLocalDataAccordingToTheSelection()
         if let statisticVC = popoverPresentationController?.delegate as? StatisticsVC{
             if self.monthString != nil{
-                statisticVC.nowMonthString = self.monthString
+                if Int(self.monthString!)!<10{
+                    statisticVC.nowMonthString = "0" + self.monthString!
+                }else{
+                    statisticVC.nowMonthString = self.monthString
+                }
+                
             }
             if self.yearString != nil{
                 statisticVC.nowYearString = self.yearString
