@@ -29,7 +29,7 @@ class StatisticsVC: UIViewController, ChartViewDelegate, UIPopoverPresentationCo
              self.updateLocalDateTime()
             self.firstTimeLoad = false
         }
-        self.generateYearCharts()
+//        self.generateYearCharts()
         self.generateMonthlyCharts()
     }
 
@@ -40,6 +40,70 @@ class StatisticsVC: UIViewController, ChartViewDelegate, UIPopoverPresentationCo
     }
     
     var container = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer
+    //柱状图样式
+    func barChartStyle(dataEntries:[BarChartDataEntry]) {
+        let barChartDataSet = BarChartDataSet(values: dataEntries, label: "支出")
+        //样式设置
+        //显示的数值的颜色，可以多个颜色
+        barChartDataSet.valueColors = [#colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1), #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1), #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1), #colorLiteral(red: 0.2745098174, green: 0.4862745106, blue: 0.1411764771, alpha: 1), #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1), #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1), #colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1)]
+        //是否显示数值
+        barChartDataSet.drawValuesEnabled = true
+        // 边界线设置
+        barChartDataSet.barBorderWidth = 1
+        barChartDataSet.barBorderColor = UIColor.black
+        // 柱形颜色
+        barChartDataSet.colors = [#colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1), #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1), #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1), #colorLiteral(red: 0.2745098174, green: 0.4862745106, blue: 0.1411764771, alpha: 1), #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1), #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1), #colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1)]
+        // 选中的高亮设置
+        //                barChartDataSet.highlightColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        //                barChartDataSet.highlightAlpha = 1
+        //                barChartDataSet.highlightLineDashLengths = [4,2]
+        //                barChartDataSet.highlightLineWidth = 2
+        //                barChartDataSet.highlightEnabled = true
+        
+        let barChartData = BarChartData(dataSet: barChartDataSet)
+        
+        //柱形数据
+        self.myBarChartView.data = barChartData
+    }
+    //做一个完整的类别饼状图
+    func generatePieChart(result:[ExEntry]?) {
+        //做作为数据源的字典
+        var pieChartDic:[String:Double] = [:]
+        for eachEntry in result!{
+            if pieChartDic.keys.contains(eachEntry.category!){
+                pieChartDic[eachEntry.category!] = pieChartDic[eachEntry.category!]! + Double(eachEntry.expence)
+                
+            }else{
+                pieChartDic[eachEntry.category!] = Double(eachEntry.expence)
+            }
+        }
+        //饼状图样式
+        var allPieChartEntries = [PieChartDataEntry]();
+        for key in pieChartDic.keys {
+            let entry = PieChartDataEntry.init(value: Double(pieChartDic[key]!), label: key);
+            allPieChartEntries.append(entry);
+        }
+        
+        let dataSet = PieChartDataSet.init(values: allPieChartEntries, label: "");
+        dataSet.colors = [#colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1), #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1), #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1), #colorLiteral(red: 0.2745098174, green: 0.4862745106, blue: 0.1411764771, alpha: 1), #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1), #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1), #colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1), #colorLiteral(red: 0.9098039269, green: 0.4784313738, blue: 0.6431372762, alpha: 1), #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1), #colorLiteral(red: 0.05882352963, green: 0.180392161, blue: 0.2470588237, alpha: 1), #colorLiteral(red: 0.6666666865, green: 0.6666666865, blue: 0.6666666865, alpha: 1)]
+        //设置名称和数据的位置 都在内就没有折线了哦
+        dataSet.xValuePosition = .insideSlice;
+        dataSet.yValuePosition = .outsideSlice;
+        dataSet.sliceSpace = 1;//相邻块的距离
+        dataSet.selectionShift = 6.66;//选中放大半径
+        //指示折线样式
+        dataSet.valueLinePart1OffsetPercentage = 0.8 //折线中第一段起始位置相对于区块的偏移量, 数值越大, 折线距离区块越远
+        dataSet.valueLinePart1Length = 0.8 //折线中第一段长度占比
+        dataSet.valueLinePart2Length = 0.4 //折线中第二段长度最大占比
+        dataSet.valueLineWidth = 1 //折线的粗细
+        dataSet.valueLineColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1) //折线颜色
+        
+        let data = PieChartData.init(dataSets: [dataSet]);
+        data.setValueFormatter(VDChartAxisValueFormatter.init());//格式化值（添加个%）
+        data.setValueFont(UIFont.systemFont(ofSize: 10.0));
+        data.setValueTextColor(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1));
+        self.myPieChartView.data = data;
+    }
     //生成月图
     func generateMonthlyCharts(){
         //query数据
@@ -79,31 +143,9 @@ class StatisticsVC: UIViewController, ChartViewDelegate, UIPopoverPresentationCo
                     let dataEntry = BarChartDataEntry.init(x: Double(day), y: Double(monthDic[day]!))
                     dataEntries.append(dataEntry)
                 }
-                
-                let barChartDataSet = BarChartDataSet(values: dataEntries, label: "支出")
-                //样式设置
-                //显示的数值的颜色，可以多个颜色
-                barChartDataSet.valueColors = [#colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1), #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1), #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1), #colorLiteral(red: 0.2745098174, green: 0.4862745106, blue: 0.1411764771, alpha: 1), #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1), #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1), #colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1)]
-                //是否显示数值
-                barChartDataSet.drawValuesEnabled = true
-                // 边界线设置
-                barChartDataSet.barBorderWidth = 1
-                barChartDataSet.barBorderColor = UIColor.black
-                // 柱形颜色
-                barChartDataSet.colors = [#colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1), #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1), #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1), #colorLiteral(red: 0.2745098174, green: 0.4862745106, blue: 0.1411764771, alpha: 1), #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1), #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1), #colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1)]
-                // 选中的高亮设置
-//                barChartDataSet.highlightColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-//                barChartDataSet.highlightAlpha = 1
-//                barChartDataSet.highlightLineDashLengths = [4,2]
-//                barChartDataSet.highlightLineWidth = 2
-//                barChartDataSet.highlightEnabled = true
-                
-                let barChartData = BarChartData(dataSet: barChartDataSet)
-                
-                //柱形数据
-                self.myBarChartView.data = barChartData
-                //--------------------------------类别 饼图
+                self.barChartStyle(dataEntries: dataEntries)
                 self.setUpPieChart()
+                //--------------------------饼状图
                 //做作为数据源的字典
                 var pieChartDic:[String:Double] = [:]
                 for eachEntry in result!{
@@ -114,33 +156,7 @@ class StatisticsVC: UIViewController, ChartViewDelegate, UIPopoverPresentationCo
                         pieChartDic[eachEntry.category!] = Double(eachEntry.expence)
                     }
                 }
-                //饼状图样式
-                var allPieChartEntries = [PieChartDataEntry]();
-                for key in pieChartDic.keys {
-                    let entry = PieChartDataEntry.init(value: Double(pieChartDic[key]!), label: key);
-                    allPieChartEntries.append(entry);
-                }
-                
-                let dataSet = PieChartDataSet.init(values: allPieChartEntries, label: "");
-                dataSet.colors = [#colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1), #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1), #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1), #colorLiteral(red: 0.2745098174, green: 0.4862745106, blue: 0.1411764771, alpha: 1), #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1), #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1), #colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1), #colorLiteral(red: 0.9098039269, green: 0.4784313738, blue: 0.6431372762, alpha: 1), #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1), #colorLiteral(red: 0.05882352963, green: 0.180392161, blue: 0.2470588237, alpha: 1), #colorLiteral(red: 0.6666666865, green: 0.6666666865, blue: 0.6666666865, alpha: 1)]
-                //设置名称和数据的位置 都在内就没有折线了哦
-                dataSet.xValuePosition = .insideSlice;
-                dataSet.yValuePosition = .outsideSlice;
-                dataSet.sliceSpace = 1;//相邻块的距离
-                dataSet.selectionShift = 6.66;//选中放大半径
-                //指示折线样式
-                dataSet.valueLinePart1OffsetPercentage = 0.8 //折线中第一段起始位置相对于区块的偏移量, 数值越大, 折线距离区块越远
-                dataSet.valueLinePart1Length = 0.8 //折线中第一段长度占比
-                dataSet.valueLinePart2Length = 0.4 //折线中第二段长度最大占比
-                dataSet.valueLineWidth = 1 //折线的粗细
-                dataSet.valueLineColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1) //折线颜色
-                
-                let data = PieChartData.init(dataSets: [dataSet]);
-                data.setValueFormatter(VDChartAxisValueFormatter.init());//格式化值（添加个%）
-                data.setValueFont(UIFont.systemFont(ofSize: 10.0));
-                data.setValueTextColor(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1));
-                self.myPieChartView.data = data;
-                
+                self.generatePieChart(result: result)
             }else{
                 //没有数据可显示
                 print("no data")
@@ -158,7 +174,26 @@ class StatisticsVC: UIViewController, ChartViewDelegate, UIPopoverPresentationCo
             //如果有数据
             if result?.count ?? 0 > 0{
                 //做一个字典，每月默认值0
-                var yearDic:[Int:Double] = [:]
+                var yearDic:[Int:Float] = [:]
+                for month in 1...12{
+                    yearDic[month] = 0
+                }
+                //进一步完成字典
+                for entry in result!{
+                    yearDic[Int(entry.month!)!] = Float(yearDic[Int(entry.month!)!]!) + entry.expence
+                }
+                //柱状图数据
+                var dataEntries: [BarChartDataEntry] = []
+                for day in 1 ... 12 {
+                    //每一个dataEntry表示一个柱形数据，如 (0,1000) 表示第一个柱形的值为1000
+                    let dataEntry = BarChartDataEntry.init(x: Double(day), y: Double(yearDic[day]!))
+                    dataEntries.append(dataEntry)
+                }
+                //柱状图样式
+                self.barChartStyle(dataEntries: dataEntries)
+                self.setUpPieChart()
+                //饼状图
+                self.generatePieChart(result: result)
             }else{
                 //如果没数据，无 能 为 力
             }
