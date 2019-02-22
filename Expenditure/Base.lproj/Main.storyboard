@@ -277,7 +277,6 @@
                                 <state key="normal" title="2019年七月"/>
                                 <connections>
                                     <action selector="timeButton:" destination="7Zl-xt-1e2" eventType="touchUpInside" id="vS9-1x-CLt"/>
-                                    <action selector="timeButtonOutlet:" destination="7Zl-xt-1e2" eventType="touchUpInside" id="pUc-iE-aHy"/>
                                     <segue destination="RdG-tF-HII" kind="popoverPresentation" identifier="customPicker" popoverAnchorView="P98-ho-wLL" id="7fI-f1-GmS">
                                         <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
                                     </segue>
@@ -308,6 +307,7 @@
                         <outlet property="monthYearSwictchedOutlet" destination="scY-gF-GnB" id="LCz-a2-4ap"/>
                         <outlet property="myBarChartView" destination="CP9-eM-lYC" id="377-tw-QqH"/>
                         <outlet property="myPieChartView" destination="fFf-H1-BKr" id="tCr-Ea-Vpb"/>
+                        <outlet property="timeButtonOutlet" destination="P98-ho-wLL" id="k9A-oi-pEV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="spf-k3-sQc" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -375,7 +375,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="e6u-Yq-hKa">
                                 <rect key="frame" x="67.666666666666686" y="323" width="240" height="166"/>
                                 <subviews>
-                                    <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="YaJ-vX-4co">
+                                    <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="YaJ-vX-4co">
                                         <rect key="frame" x="0.0" y="0.0" width="240" height="114"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="240" id="E4z-Bo-7Fy"/>

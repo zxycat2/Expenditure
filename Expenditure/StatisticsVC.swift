@@ -23,12 +23,14 @@ class StatisticsVC: UIViewController, ChartViewDelegate, UIPopoverPresentationCo
     var firstTimeLoad = true
     override func viewWillAppear(_ animated: Bool) {
         //初始化
-        self.selectedDateTime = Date()
+        self.nowdDateTime = Date()
         self.dateFormatterDateTimeVer.dateFormat = "yyy-MM-dd HH:mm"
         if self.firstTimeLoad{
              self.updateLocalDateTime()
             self.firstTimeLoad = false
         }
+        self.updatePickerButtonTextAndChart()
+        
         self.barChartStyle()
         self.pieChartStyle()
         self.getDataForMonthCharts()
@@ -38,10 +40,26 @@ class StatisticsVC: UIViewController, ChartViewDelegate, UIPopoverPresentationCo
         if (self.myPieChartDataEntries != nil){
             self.generatePieChartWithData(dataEntries: self.myPieChartDataEntries!)
         }
+        //初始化switcher
+        self.monthYearSwictchedOutlet.addTarget(self, action: #selector(updatePickerButtonTextAndChart), for: .valueChanged)
     }
-
+    //update 选择日期按钮的text 和图表数据 并且重绘图表
+    @objc func updatePickerButtonTextAndChart(){
+        if self.monthYearSwictchedOutlet.selectedSegmentIndex == 0{
+            print(self.nowMonthString)
+            self.timeButtonOutlet.setTitle(self.nowYearString!+"年"+self.nowMonthString!+"月", for: .normal)
+            self.getDataForMonthCharts()
+            self.generatePieChartWithData(dataEntries: self.myPieChartDataEntries!)
+            self.generateBarChartWithData(dataEntries: self.myBarChartDataEntries!)
+        }else{
+            self.timeButtonOutlet.setTitle(self.nowYearString!+"年", for: .normal)
+            self.getDataForYearCharts()
+            self.generatePieChartWithData(dataEntries: self.myPieChartDataEntries!)
+            self.generateBarChartWithData(dataEntries: self.myBarChartDataEntries!)
+        }
+    }
     func updateLocalDateTime(){
-        let dateString = self.dateFormatterDateTimeVer.string(from: self.selectedDateTime!)
+        let dateString = self.dateFormatterDateTimeVer.string(from: self.nowdDateTime!)
         self.nowMonthString = String(dateString[dateString.index(dateString.startIndex, offsetBy: 5)..<dateString.index(dateString.startIndex, offsetBy: 7)])
         self.nowYearString = String(dateString[dateString.index(dateString.startIndex, offsetBy: 0)..<dateString.index(dateString.startIndex, offsetBy: 4)])
     }
@@ -124,9 +142,12 @@ class StatisticsVC: UIViewController, ChartViewDelegate, UIPopoverPresentationCo
         self.myPieChartDataEntries = pieChartDataEntries
     }
     
-    //生成月图
+    //query月图需要的数据
     func getDataForMonthCharts(){
         //query数据
+        print("Q:")
+        print(self.nowMonthString)
+        print(self.nowYearString)
         if let context = self.container?.viewContext{
             let request:NSFetchRequest<ExEntry> = ExEntry.fetchRequest()
             request.sortDescriptors = [NSSortDescriptor(key: "dateTime", ascending: true)]
@@ -167,16 +188,15 @@ class StatisticsVC: UIViewController, ChartViewDelegate, UIPopoverPresentationCo
                 self.myBarChartDataEntries = barChartDataEntries
                 //饼状图
                 self.getDataForPieChart(result: result)
-                //test
-                self.generateBarChartWithData(dataEntries: self.myBarChartDataEntries!)
-                self.generatePieChartWithData(dataEntries: self.myPieChartDataEntries!)
             }else{
                 //没有数据可显示
                 print("no data")
+                self.myPieChartDataEntries = [PieChartDataEntry]()
+                self.myBarChartDataEntries = [BarChartDataEntry]()
             }
         }
     }
-    //生成年图
+    //query年图需要的数据
     func getDataForYearCharts(){
         if let context = self.container?.viewContext{
             let request:NSFetchRequest<ExEntry> = ExEntry.fetchRequest()
@@ -204,11 +224,10 @@ class StatisticsVC: UIViewController, ChartViewDelegate, UIPopoverPresentationCo
                 self.myBarChartDataEntries = dataEntries
                 //饼状图
                 self.getDataForPieChart(result: result)
-                //test
-                self.generateBarChartWithData(dataEntries: self.myBarChartDataEntries!)
-                self.generatePieChartWithData(dataEntries: self.myPieChartDataEntries!)
             }else{
                 //如果没数据，无 能 为 力
+                self.myPieChartDataEntries = [PieChartDataEntry]()
+                self.myBarChartDataEntries = [BarChartDataEntry]()
             }
         }
     }
@@ -314,9 +333,21 @@ class StatisticsVC: UIViewController, ChartViewDelegate, UIPopoverPresentationCo
         //设置动画效果
         self.myPieChartView.animate(yAxisDuration: 2)
     }
-    var selectedDateTime:Date? = nil
-    var nowMonthString:String? = nil
-    var nowYearString:String? = nil
+    var nowdDateTime:Date? = nil
+    var nowMonthString:String? = nil{
+        didSet{
+            if !self.firstTimeLoad{
+                self.updatePickerButtonTextAndChart()
+            }
+        }
+    }
+    var nowYearString:String? = nil{
+        didSet{
+            if !self.firstTimeLoad{
+                self.updatePickerButtonTextAndChart()
+            }
+        }
+    }
     let dateFormatterDateTimeVer = DateFormatter()
     
     
@@ -329,8 +360,8 @@ class StatisticsVC: UIViewController, ChartViewDelegate, UIPopoverPresentationCo
         
     }
     
-    @IBAction func timeButtonOutlet(_ sender: Any) {
-    }
+    
+    @IBOutlet weak var timeButtonOutlet: UIButton!
     @IBAction func monthYearSwitcher(_ sender: UISegmentedControl) {
     }
     @IBOutlet weak var monthYearSwictchedOutlet: UISegmentedControl!
