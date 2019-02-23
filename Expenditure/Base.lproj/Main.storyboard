@@ -286,6 +286,9 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <gestureRecognizers/>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="Kig-NZ-v5F" appends="YES" id="lSe-ch-tcF"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="MTc-9j-UHz">
                                         <rect key="frame" x="0.0" y="72" width="375" height="44"/>
@@ -303,6 +306,7 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <gestureRecognizers/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="Epi-xf-bvt">
                                         <rect key="frame" x="0.0" y="116" width="375" height="44"/>
@@ -320,6 +324,7 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <gestureRecognizers/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -358,8 +363,17 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="dzb-Iy-Rse"/>
+                    <connections>
+                        <outlet property="myTableView" destination="F4R-Hi-zbx" id="aBZ-We-bEc"/>
+                        <outlet property="tableView" destination="F4R-Hi-zbx" id="nuF-ya-Fcp"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OYV-X2-Ofq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="Kig-NZ-v5F">
+                    <connections>
+                        <action selector="exportJSON:" destination="pEu-qK-H6m" id="EHj-Zc-Ivc"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-5078" y="-49"/>
         </scene>

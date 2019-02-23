@@ -116,6 +116,14 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		BB481BF42221C40800CAD520 /* Settings Page */ = {
+			isa = PBXGroup;
+			children = (
+				BB481BF12221C2BF00CAD520 /* SettingVC.swift */,
+			);
+			path = "Settings Page";
+			sourceTree = "<group>";
+		};
 		BB877E6021F7A2EC00BFE382 = {
 			isa = PBXGroup;
 			children = (
@@ -141,7 +149,7 @@
 				BB877E8921F7D7A000BFE382 /* ExEntry.swift */,
 				BB481BEF2221A5CC00CAD520 /* ExEntryForJSON.swift */,
 				BB877E7021F7A2EC00BFE382 /* Main.storyboard */,
-				BB481BF12221C2BF00CAD520 /* SettingVC.swift */,
+				BB481BF42221C40800CAD520 /* Settings Page */,
 				BB63C9D9220F4A82009B1CCC /* customPickerVC.swift */,
 				BBA82D8022079A11001C86A6 /* StatisticsVC.swift */,
 				BB36EA52220BBA5900219C80 /* VDChartAxisValueFormatter.swift */,
