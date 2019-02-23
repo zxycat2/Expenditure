@@ -44,12 +44,7 @@ class SettingVC: UITableViewController {
                 let myTempFileUrl = try? FileManager.default.url(for: .cachesDirectory, in: .userDomainMask, appropriateFor: nil, create: true).appendingPathComponent("TempJSON.json")
                 if myTempFileUrl != nil{
                     do{
-                        print(myTempFileUrl!.path)
-                        print(jsonData)
                         try jsonData!.write(to: myTempFileUrl!)
-                        let retrieveData = try Data.init(contentsOf: myTempFileUrl!, options: .uncached)
-                        print(retrieveData)
-                        //
                         self.documentInteractionController.url = myTempFileUrl!
                        documentInteractionController.presentOpenInMenu(from: CGRect(x: 0, y: 0, width: 90, height: 90), in: self.view, animated: true)
                     }catch {
