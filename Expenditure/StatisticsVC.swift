@@ -142,14 +142,23 @@ class StatisticsVC: UIViewController, ChartViewDelegate, UIPopoverPresentationCo
     func getDataForMonthCharts(){
         //query数据
         print("Q:")
-        print(self.nowMonthString)
-        print(self.nowYearString)
         if let context = self.container?.viewContext{
             let request:NSFetchRequest<ExEntry> = ExEntry.fetchRequest()
             request.sortDescriptors = [NSSortDescriptor(key: "dateTime", ascending: true)]
             request.predicate = NSPredicate(format: "year == %@ && month == %@", self.nowYearString! as CVarArg, self.nowMonthString! as CVarArg)
             let result = try?context.fetch(request)
             if result?.count ?? 0 > 0{
+                //JSON test
+                var testList:[ExEntryForJSON] = []
+                for exentry in result!{
+                    let entryForJson = ExEntryForJSON(year: exentry.year!, uuid: exentry.uuid!, month: exentry.month!, expence: exentry.expence, detail: exentry.detail!, day: exentry.day!, dateTime: exentry.dateTime!, category: exentry.category!)
+                    testList.append(entryForJson)
+                }
+                let jsonEncoder = JSONEncoder()
+                let jsonData = try? jsonEncoder.encode(testList)
+                let json = try? JSONSerialization.jsonObject(with: jsonData!, options: .mutableContainers)
+                print(json)
+
                 //--------------------------------支出折线图--------
                 //生成一个一个月的字典，默认每天都是0
                 var monthDic:[Int:Float] = [:]
